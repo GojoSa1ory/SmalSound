@@ -1,0 +1,13 @@
+<form>
+  <h1>{{isLogginPage ? "Log in" : "Register"}}</h1>
+
+  <input [ngModel]="username" (ngModelChange)="onNameChange($event)" type="text" name="username">
+
+  @if (!isLogginPage){
+    <input [ngModel]="email" (ngModelChange)="onEmailChange($event)" type="email" name="email">
+  }
+
+  <input [ngModel]="password" (ngModelChange)="onPasswordChange($event)" type="password" name="password">
+
+  <button (click)="handleClick($event)">{{isLogginPage ? "Log in" : "Register"}}</button>
+</form>
