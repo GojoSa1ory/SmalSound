@@ -14,10 +14,11 @@ import {AuthFormComponent} from "../../components/UI/auth-form/auth-form.compone
 })
 export class LoginComponent {
 
+  private readonly authService = inject(AuthService)
+
   username!: string
   password!: string
-
-  private readonly authService = inject(AuthService)
+  isAuth: boolean = this.authService.isAuth
 
   handleLogin = (event: any) => {
     event.preventDefault()
@@ -29,7 +30,7 @@ export class LoginComponent {
 
     this.authService.loginUser(user).subscribe({
       next: value => {
-        sessionStorage.setItem("token", value.data.token)
+        localStorage.setItem("token", value.data.token)
         this.authService.setUser(value.data.user)
       },
       error: err => console.log(err)

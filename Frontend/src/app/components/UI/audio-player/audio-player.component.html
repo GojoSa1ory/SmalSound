@@ -1,0 +1,46 @@
+<div class="audio-player">
+    <!--  <audio src="{{track()?.track}}"></audio>-->
+
+    <div class="track-info-container">
+        @if (track()?.trackImage) {
+        <img [src]="track()?.trackImage" width="40px" alt="sdf" />
+        } @else {
+        <span class="w-[60px] h-[60px] rounded-[15px] bg-black"></span>
+        }
+
+        <div class="track-info-text">
+            <p>{{track()?.name}}</p>
+            <p>{{track()?.user?.name}}</p>
+        </div>
+    </div>
+
+
+    <div class="audio-controllers">
+        <div class="audio-controllers-buttons">
+            <button (click)="handleClick()">⤨</button>
+            <button (click)="handleClick()">⥢</button>
+            <button (click)="handleClick()">
+                {{track()?.isPlaying ? "⏸" : "⏵"}}
+            </button>
+            <button (click)="handleClick()">⥤</button>
+            <button (click)="handleLoop()">⥁</button>
+        </div>
+
+        <p>{{currentTime()}}</p>
+
+        <!-- <input
+            type="range"
+            [max]="duration()"
+            [value]="currentTime()"
+            (input)="handleChangeCurrentTime($event)"
+        /> -->
+
+        <button (click)="handleChangeCurrentTime($event)">d</button>
+    </div>
+
+    <input
+        type="range"
+        [value]="currentVolume()"
+        (input)="setCurrentVolume($event)"
+    />
+</div>

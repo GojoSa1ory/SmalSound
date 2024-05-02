@@ -1,7 +1,10 @@
+import {UserModel} from "./UserModel";
+
 export type TrackModel = {
   id: number,
   name: string,
   trackImage: string,
   track: string,
-  user: any
+  isPlaying: boolean
+  user: UserModel
 }

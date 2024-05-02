@@ -61,4 +61,34 @@ public class TrackController: ControllerBase
 
         return Ok(response);
     }
+
+    [HttpGet("search/{request}")]
+    public async Task<ActionResult<ServiceResponse<List<GetTrackDto>>>> SearchTrack(string request)
+    {
+        var response = await _service.SearchTrack(request);
+
+        if (!response.Success) return BadRequest(response);
+        
+        return response;
+    }
+    
+    [HttpGet("sort/{sortMethod}")]
+    public async Task<ActionResult<ServiceResponse<List<GetTrackDto>>>> SortTrack(string sortMethod)
+    {
+        var response = await _service.SortTrack(sortMethod);
+
+        if (!response.Success) return BadRequest(response);
+        
+        return response;
+    }
+
+    [HttpDelete("delete/{trackId}")]
+    public async Task<ActionResult<ServiceResponse<string>>> DeleteTrack(int trackId)
+    {
+        var response = await _service.DeleteTrack(trackId);
+
+        if (!response.Success) return BadRequest(response);
+        
+        return Ok(response);
+    }
 }

@@ -1,0 +1,25 @@
+.layout-container {
+  display: grid;
+  //flex-direction: row;
+  //justify-content: start;
+  //align-items: center;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.content-container {
+  flex-grow: 1;
+  box-sizing: border-box;
+}
+
+.audio-player-container {
+  width: 100vw;
+  height: 100px;
+  position: fixed;
+  bottom: 0;
+  border-style: solid;
+  border-width: 1px;
+  grid-column-start: 1;
+  grid-column-end: 2;
+}

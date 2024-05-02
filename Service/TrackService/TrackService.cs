@@ -111,4 +111,74 @@ public class TrackService: ITrackService
         
         return response;
     }
+
+    public async Task<ServiceResponse<List<GetTrackDto>>> SearchTrack(string request)
+    {
+        ServiceResponse<List<GetTrackDto>> response = new();
+
+        try
+        {
+            var tracksList = _context.Tracks
+                .Include(t => t.User)
+                .Where(t => t.Name.ToLower().Contains(request.ToLower()));
+
+            response.Data = tracksList.Select(t => _mapper.Map<GetTrackDto>(t)).ToList();
+        }
+        catch (Exception ex)
+        {
+            response.Message = ex.Message;
+            response.Success = false;
+        }
+        
+        return response;
+    }
+
+    public async Task<ServiceResponse<List<GetTrackDto>>> SortTrack(string sortMethod)
+    {
+        ServiceResponse<List<GetTrackDto>> response = new();
+
+        try
+        {
+            var result = _context.Tracks
+                .Include(t => t.User)
+                .OrderBy(t => t.Name)
+                .ToList();
+
+            response.Data = result.Select(t => _mapper.Map<GetTrackDto>(t)).ToList();
+
+        }
+        catch (Exception e)
+        {
+            response.Message = e.Message;
+            response.Success = false;
+        }
+        
+        return response;
+    }
+
+    public async Task<ServiceResponse<string>> DeleteTrack(int trackId)
+    {
+        ServiceResponse<string> response = new();
+
+        try
+        {
+            var track = _context.Tracks.FirstOrDefault(t => t.Id == trackId);
+
+            if (track is null) throw new Exception("Track not found");
+
+            _context.Tracks.Remove(track);
+
+            await _context.SaveChangesAsync();
+
+            response.Data = "done";
+
+        }
+        catch (Exception e)
+        {
+            response.Message = e.Message;
+            response.Success = false;
+        }
+        
+        return response;
+    }
 }

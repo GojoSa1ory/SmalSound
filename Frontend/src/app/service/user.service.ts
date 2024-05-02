@@ -12,13 +12,13 @@ export class UserService {
 
   private readonly apiUrl = environment.apiUrl
   private readonly http: HttpClient = inject(HttpClient)
-  private readonly token: string | null = sessionStorage.getItem("token")
   constructor() { }
 
   private getRequestOptions(): { headers: HttpHeaders } {
     let headers = new HttpHeaders();
-    if (this.token) {
-      headers = headers.set('Authorization', `Bearer ${this.token}`); // Добавляем токен в заголовок запроса
+    const token: string | null = sessionStorage.getItem("token")
+    if (token) {
+      headers = headers.set('Authorization', `Bearer ${token}`);
     }
     return { headers };
   }

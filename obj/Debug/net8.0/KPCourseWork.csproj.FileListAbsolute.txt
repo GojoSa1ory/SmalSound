@@ -118,3 +118,5 @@
 /Users/artem/Documents/programmingProjects/KPIAP/KPCourseWork/bin/Debug/net8.0/Microsoft.IdentityModel.Tokens.dll
 /Users/artem/Documents/programmingProjects/KPIAP/KPCourseWork/bin/Debug/net8.0/System.IdentityModel.Tokens.Jwt.dll
 /Users/artem/Documents/programmingProjects/KPIAP/KPCourseWork/bin/Debug/net8.0/BCrypt.Net-Next.dll
+/Users/artem/Documents/programmingProjects/KPIAP/KPCourseWork/obj/Debug/net8.0/KPCourseWork.sourcelink.json
+/Users/artem/Documents/programmingProjects/KPIAP/KPCourseWork/bin/Debug/net8.0/Frontend/package-lock.json
