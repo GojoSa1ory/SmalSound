@@ -1,0 +1,12 @@
+<div>
+    <img [src]="track()?.trackImage" width="60px"/>
+
+    <div>
+      <button (click)="handlePrevTrack()">⥢</button>
+      <button (click)="handlePlay()">{{track()?.isPlaying ? "⏸" : "►" }}</button>
+      <button (click)="handleNextTrack()">⥤</button>
+      <input type="range" [max]="duration()" [value]="currentTime()" (input)="handleSetTime($event)">
+    </div>
+
+    <input type="range" [value]="currentVolume()" (input)="handleSetCurrentVolume($event)">
+</div>

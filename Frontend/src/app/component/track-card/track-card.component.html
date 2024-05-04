@@ -1,0 +1,11 @@
+<div class="trackCard">
+
+    <img [src]="track.trackImage">
+
+    <div class="trackInfo">
+      <p>{{track.name}}</p>
+      <p>{{track.user.name}}</p>
+    </div>
+
+    <button (click)="handlePlay()">{{isPlaying() ? "⏸" : "►" }}</button>
+</div>

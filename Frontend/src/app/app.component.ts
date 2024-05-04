@@ -1,40 +1,30 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, OnInit, signal, WritableSignal} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
-import {NavBarComponent} from "./components/nav-bar/nav-bar.component";
-import {AuthService} from "./service/auth.service";
-import {UserService} from "./service/user.service";
-import {AudioPlayerComponent} from "./components/UI/audio-player/audio-player.component";
+import {TrackService} from "./service/track.service";
+import {AudioPlayerComponent} from "./component/audio-player/audio-player.component";
+import {TrackModel} from "./models/track.model";
+import {TrackCardComponent} from "./component/track-card/track-card.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, NavBarComponent, AudioPlayerComponent],
+  imports: [CommonModule, RouterOutlet, AudioPlayerComponent, TrackCardComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
 
-  private readonly authService = inject(AuthService)
-  private readonly userService = inject(UserService)
+  title = 'Frontend';
+  tracks: WritableSignal<TrackModel[] | []> = signal([])
 
-  title = 'SmallSound';
+  constructor(private trackService: TrackService) {}
+
   ngOnInit(): void {
-
-      const token: string | null | undefined = this.authService.token
-
-      if(token != null) {
-        this.userService.getProfile().subscribe({
-          next: value => {
-            this.authService.setUser(value.data)
-            this.authService.isAuth = true
-          },
-          error: err => {
-            console.log(err)
-            localStorage.removeItem("token")
-          }
-        })
-      }
-
+      this.trackService.getAllTracks().subscribe({
+        next: value => this.trackService.tracks.set(value.data!),
+        error: err => console.log(err)
+      })
+      this.tracks = this.trackService.tracks
   }
 }

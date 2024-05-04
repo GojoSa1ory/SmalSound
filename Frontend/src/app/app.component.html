@@ -1,9 +1,6 @@
-<section class="layout-container">
-  <app-nav-bar/>
+@for (track of tracks(); track $index) {
+  <app-track-card [track]="track"/>
+}
 
-  <div class="content-container">
-    <router-outlet></router-outlet>
-  </div>
-
-  <app-audio-player class="audio-player-container"/>
-</section>
+<app-audio-player/>
+<router-outlet></router-outlet>

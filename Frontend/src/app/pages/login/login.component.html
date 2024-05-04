@@ -1,8 +1,0 @@
-<section>
-  @if(!isAuth) {
-    <app-auth-form [isLogginPage]="true" [(password)]="password" [(username)]="username" [handleClick]="handleLogin"/>
-  } @else {
-    <p>hello user</p>
-  }
-
-</section>
