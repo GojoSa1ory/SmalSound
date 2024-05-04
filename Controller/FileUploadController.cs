@@ -13,10 +13,28 @@ public class FileUploadController: ControllerBase
     {
         _service = service;
     }
-    
-    [HttpGet]
+
+    // [HttpGet("file/get")]
+    // public async Task<IActionResult> GetImage(string path)
+    // {
+    //     string filePath = $"./{path}";
+
+    //     if (!System.IO.File.Exists(filePath))
+    //     {
+    //         return NotFound("File not found");
+    //     }
+
+    //     byte[] fileBytes = await System.IO.File.ReadAllBytesAsync(filePath);
+
+    //     string contentType = "audio/mpeg";
+
+    //     string fileName = Path.GetFileName(filePath);
+
+    //     return File(fileBytes, contentType, fileName);
+    // }
+
     [HttpGet("file/get")]
-    public async Task<IActionResult> GetImage(string path)
+    public IActionResult GetAudio(string path)
     {
         string filePath = $"./{path}";
 
@@ -25,12 +43,13 @@ public class FileUploadController: ControllerBase
             return NotFound("File not found");
         }
 
-        byte[] fileBytes = System.IO.File.ReadAllBytes(filePath);
+        var fileStream = System.IO.File.OpenRead(filePath);
 
-        string contentType = "application/octet-stream";
+        // Включаем поддержку Range requests
+        HttpContext.Response.Headers.Add("Accept-Ranges", "bytes");
 
-        string fileName = Path.GetFileName(filePath);
-
-        return File(fileBytes, contentType, fileName);
+        // Возвращаем FileStream прямо из метода
+        return File(fileStream, "audio/mpeg", Path.GetFileName(filePath));
     }
+
 }

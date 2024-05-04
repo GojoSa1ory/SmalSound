@@ -21,9 +21,19 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Frontend\src\component\" />
     <Folder Include="Uploads\TrackImage\" />
     <Folder Include="Uploads\Track\" />
     <Folder Include="Uploads\UserImage\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Frontend\angular.json" />
+    <_ContentIncludedByDefault Remove="Frontend\package-lock.json" />
+    <_ContentIncludedByDefault Remove="Frontend\package.json" />
+    <_ContentIncludedByDefault Remove="Frontend\tsconfig.app.json" />
+    <_ContentIncludedByDefault Remove="Frontend\tsconfig.json" />
+    <_ContentIncludedByDefault Remove="Frontend\tsconfig.spec.json" />
   </ItemGroup>
 
 </Project>

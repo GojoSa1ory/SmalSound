@@ -31,11 +31,6 @@
 /Users/artem/Documents/programmingProjects/KPIAP/KPCourseWork/obj/Debug/net8.0/KPCourseWork.pdb
 /Users/artem/Documents/programmingProjects/KPIAP/KPCourseWork/obj/Debug/net8.0/KPCourseWork.genruntimeconfig.cache
 /Users/artem/Documents/programmingProjects/KPIAP/KPCourseWork/obj/Debug/net8.0/ref/KPCourseWork.dll
-/Users/artem/Documents/programmingProjects/KPIAP/KPCourseWork/bin/Debug/net8.0/Frontend/angular.json
-/Users/artem/Documents/programmingProjects/KPIAP/KPCourseWork/bin/Debug/net8.0/Frontend/package.json
-/Users/artem/Documents/programmingProjects/KPIAP/KPCourseWork/bin/Debug/net8.0/Frontend/tsconfig.app.json
-/Users/artem/Documents/programmingProjects/KPIAP/KPCourseWork/bin/Debug/net8.0/Frontend/tsconfig.json
-/Users/artem/Documents/programmingProjects/KPIAP/KPCourseWork/bin/Debug/net8.0/Frontend/tsconfig.spec.json
 /Users/artem/Documents/programmingProjects/KPIAP/KPCourseWork/bin/Debug/net8.0/AutoMapper.dll
 /Users/artem/Documents/programmingProjects/KPIAP/KPCourseWork/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.dll
 /Users/artem/Documents/programmingProjects/KPIAP/KPCourseWork/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.Abstractions.dll
@@ -119,4 +114,9 @@
 /Users/artem/Documents/programmingProjects/KPIAP/KPCourseWork/bin/Debug/net8.0/System.IdentityModel.Tokens.Jwt.dll
 /Users/artem/Documents/programmingProjects/KPIAP/KPCourseWork/bin/Debug/net8.0/BCrypt.Net-Next.dll
 /Users/artem/Documents/programmingProjects/KPIAP/KPCourseWork/obj/Debug/net8.0/KPCourseWork.sourcelink.json
+/Users/artem/Documents/programmingProjects/KPIAP/KPCourseWork/bin/Debug/net8.0/Frontend/package.json
+/Users/artem/Documents/programmingProjects/KPIAP/KPCourseWork/bin/Debug/net8.0/Frontend/tsconfig.json
+/Users/artem/Documents/programmingProjects/KPIAP/KPCourseWork/bin/Debug/net8.0/Frontend/angular.json
+/Users/artem/Documents/programmingProjects/KPIAP/KPCourseWork/bin/Debug/net8.0/Frontend/tsconfig.app.json
+/Users/artem/Documents/programmingProjects/KPIAP/KPCourseWork/bin/Debug/net8.0/Frontend/tsconfig.spec.json
 /Users/artem/Documents/programmingProjects/KPIAP/KPCourseWork/bin/Debug/net8.0/Frontend/package-lock.json
