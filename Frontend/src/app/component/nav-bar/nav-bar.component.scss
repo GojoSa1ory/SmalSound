@@ -1,0 +1,81 @@
+@keyframes glitchTitle {
+  0% {
+    text-shadow: none;
+  }
+  25% {
+    text-shadow: -1.5px -1.5px 0 #eb055a, 1.5px 1.5px 0 #4632f0;
+  }
+  50% {
+    text-shadow: 1.5px -1.5px 0 #eb055a, -1.5px 1.5px 0 #4632f0;
+  }
+  75% {
+    text-shadow: -1.5px 1.5px 0 #eb055a, 1.5px -1.5px 0 #4632f0;
+  }
+  100% {
+    text-shadow: 1.5px 1.5px 0 #eb055a, -1.5px -1.5px 0 #4632f0;
+  }
+}
+
+.navBar-container {
+  background-color: #18152d;
+  padding: 30px;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  //background-color: #1d1c1c;
+}
+
+.navBar-container h1 {
+  font-size: 24px;
+  animation-duration: 0.65s;
+  animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  animation-delay: 0s;
+  animation-iteration-count: infinite;
+  animation-direction: normal;
+  animation-fill-mode: both;
+  animation-play-state: running;
+  animation-name: glitchTitle;
+  animation-timeline: auto;
+  animation-range-start: normal;
+  animation-range-end: normal;
+}
+
+.navBar-items-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  border-radius: 15px;
+  width: 100%;
+  padding: 15px;
+  background-color: #1e1a3b;
+  margin-top: 20px;
+}
+
+.navBar-items-button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  background: none;
+  padding: 5px;
+  border-radius: 5px;
+  border: none;
+  color: white;
+  transition-duration: 170ms;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: bold;
+  //font-family: "Josefin Sans";
+}
+
+.navBar-items-button:hover {
+  background-color: #eb055a;
+}
+
+.navBar-items-userImg {
+  border-radius: 50%;
+  width: 40px;
+}

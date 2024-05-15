@@ -1,0 +1,79 @@
+.audioPlayer-container {
+  background-color: #1e1a3b; // for track card
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 10px;
+  height: 60px;
+}
+
+.track-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.track-info img {
+  width: 60px;
+  border-radius: 5px;
+  border: none;
+}
+
+.track-info img:empty {
+  background-color: black;
+}
+
+.track-info-text {
+  display: flex;
+  margin-left: 12px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+}
+
+.audioPlayer-buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.audioPlayer-controll-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.audioPlayer-controll-buttons img {
+  width: 20px;
+  color: white;
+}
+
+.audioPlayer-controll-buttons button {
+  border: none;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: none;
+  margin: 0 5px;
+}
+
+.audioPlayer-track-timer {
+  width: 420px;
+}
+
+//.random_button {
+//  font-size: 25px;
+//}
+//.prev-next_button {
+//  font-size: 20px;
+//}
+//
+//.play_button {
+//  font-size: 25px;
+//}
+//
+//.loop_button {
+//  font-size: 24px;
+//}

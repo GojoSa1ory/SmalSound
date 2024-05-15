@@ -1,0 +1,28 @@
+﻿<Properties StartupConfiguration="{47E61169-B4FB-4D03-AC2D-3B0A52208CEB}|https">
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.KPCourseWork PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Controller/AuthController.cs">
+    <Files>
+      <File FileName="Frontend/src/app/service/auth.service.ts" Line="17" Column="44" />
+      <File FileName="Controller/AuthController.cs" Line="1" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="KPCourseWork">
+            <Node name="KPCourseWork" expanded="True">
+              <Node name="Controller" expanded="True">
+                <Node name="AuthController.cs" selected="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+</Properties>

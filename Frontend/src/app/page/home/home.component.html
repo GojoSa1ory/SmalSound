@@ -1,0 +1,7 @@
+<div class="home-container">
+    @for (track of tracks(); track $index) {
+    <app-track-card [track]="track" />
+    } @empty {
+    <p>empty</p>
+    }
+</div>

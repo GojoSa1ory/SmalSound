@@ -20,7 +20,7 @@ public class AuthService : IAuthService
         _mapper = mapper;
         _configuration = configuration;
     }
-    
+
     public async Task<ServiceResponse<AuthDto>> Register(SetUserDto user)
     {
         ServiceResponse<AuthDto> response = new();
@@ -29,15 +29,15 @@ public class AuthService : IAuthService
         {
             var checkUser = _context.Users.FirstOrDefault(u => u.Email == user.Email || u.Name == user.Name);
             var role = _context.Roles.FirstOrDefault(r => r.Id == 3);
-            
+
             if (checkUser is not null) throw new Exception("This email is already exist");
-            
+
             var newUser = _mapper.Map<UserModel>(user);
 
             newUser.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
             newUser.Role = role;
             string token = CreateToken(newUser);
-            
+
             _context.Users.Add(newUser);
 
             await _context.SaveChangesAsync();
@@ -55,7 +55,7 @@ public class AuthService : IAuthService
             response.Message = e.Message;
             response.Success = false;
         }
-        
+
         return response;
     }
 
@@ -71,7 +71,7 @@ public class AuthService : IAuthService
 
             if (user is null) throw new Exception("User not found");
 
-            if (!BCrypt.Net.BCrypt.Verify(user.Password, userDb.Password)) 
+            if (!BCrypt.Net.BCrypt.Verify(user.Password, userDb.Password))
                 throw new Exception("Invalid password");
 
             var token = CreateToken(userDb);
@@ -88,7 +88,7 @@ public class AuthService : IAuthService
             response.Message = e.Message;
             response.Success = false;
         }
-        
+
         return response;
     }
 
@@ -98,12 +98,12 @@ public class AuthService : IAuthService
 
         _context.Roles.Add(role);
         await _context.SaveChangesAsync();
-        
+
         response.Data = role;
-        
+
         return response;
     }
-    
+
     private string CreateToken(UserModel user)
     {
         List<Claim> claims = new List<Claim>

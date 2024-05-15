@@ -1,6 +1,35 @@
-@for (track of tracks(); track $index) {
-  <app-track-card [track]="track"/>
-}
+<!--<app-nav-bar/>-->
+<!--<router-outlet></router-outlet>-->
+<!--<div class="container">-->
 
-<app-audio-player/>
-<router-outlet></router-outlet>
+<!--  <div class="main-content">-->
+<!--    <router-outlet></router-outlet>-->
+<!--  </div>-->
+<!--  <div class="left-panel">-->
+<!--    &lt;!&ndash; Навигационная панель &ndash;&gt;-->
+<!--    <app-nav-bar/>-->
+<!--  </div>-->
+<!--  &lt;!&ndash; Плеер &ndash;&gt;-->
+<!--  <div class="audioPlayer">-->
+<!--    <app-audio-player/>-->
+<!--  </div>-->
+<!--</div>-->
+
+<div class="wrap flex">
+
+  <div class="flex">
+
+    <div class="sidebar">
+      <app-nav-bar/>
+    </div>
+
+    <div class="main">
+      <router-outlet/>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    <app-audio-player/>
+  </div>
+</div>

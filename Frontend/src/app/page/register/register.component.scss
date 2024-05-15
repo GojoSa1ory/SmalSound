@@ -1,0 +1,56 @@
+@keyframes glitchTitle {
+  0% {
+    text-shadow: none;
+  }
+  25% {
+    text-shadow: -2.5px -1.5px 0 #eb055a, 1.5px 1.5px 0 #4632f0;
+  }
+  50% {
+    text-shadow: 1.5px -1.5px 0 #eb055a, -1.5px 1.5px 0 #4632f0;
+  }
+  75% {
+    text-shadow: -2.5px 1.5px 0 #eb055a, 1.5px -1.5px 0 #4632f0;
+  }
+  100% {
+    text-shadow: 1.5px 1.5px 0 #eb055a, -1.5px -1.5px 0 #4632f0;
+  }
+}
+
+.register-container {
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  background-color: #1e1a3b;
+  padding: 30px;
+  border-radius: 15px;
+  box-sizing: border-box;
+}
+
+.reg-content {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 60% 25%;
+}
+
+.symbol-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.symbol {
+  font-size: 74px;
+  animation-duration: 0.65s;
+  animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  animation-delay: 0s;
+  animation-iteration-count: infinite;
+  animation-direction: normal;
+  animation-fill-mode: both;
+  animation-play-state: running;
+  animation-name: glitchTitle;
+  animation-timeline: auto;
+  animation-range-start: normal;
+  animation-range-end: normal;
+}

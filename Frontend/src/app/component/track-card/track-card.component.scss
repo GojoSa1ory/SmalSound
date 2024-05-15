@@ -4,21 +4,37 @@
   align-items: center;
   padding: 10px;
   border-radius: 15px;
+  background-color: #18152d;
+  margin: 10px 0;
 }
 
 .trackCard img {
   border-radius: 15px;
-  height: 60px;
+  width: 60px;
 }
 
 .trackInfo {
   display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.trackInfo-text {
+  display: flex;
   flex-direction: column;
-  justify-content: start;
+  justify-content: center;
   align-items: start;
+  margin-left: 10px;
 }
 
 .trackCard button {
   border-radius: 15px;
   text-align: center;
+  border: none;
+  background: none;
+}
+
+.trackCard button img{
+  width: 20px;
 }

@@ -1,0 +1,53 @@
+<div class="navBar-container">
+  <h1>SmallSound</h1>
+
+  <div class="navBar-items-container">
+
+    <a routerLink="/" class="navBar-items-button">
+      <lucide-icon name="home" size="24"/>
+       Главная
+    </a>
+
+    <button class="navBar-items-button">
+      <lucide-icon name="search" size="24"/>
+      Поиск
+    </button>
+  </div>
+
+  @if (!isAuth()) {
+    <div class="navBar-items-container">
+      <a class="navBar-items-button" routerLink="login">
+        <lucide-icon name="shield-check"></lucide-icon>
+        Log in
+      </a>
+      <a class="navBar-items-button" routerLink="register">
+        <lucide-icon name="user-plus"></lucide-icon>
+        Register
+      </a>
+    </div>
+  } @else {
+    <div class="navBar-items-container">
+
+      <a class="navBar-items-button" routerLink="/profile">
+        @if (user()?.profilePicture != "string") {
+          <img [src]="user()?.profilePicture" class="navBar-items-userImg">
+        } @else {
+          <lucide-icon name="circle-user"></lucide-icon>
+        }
+        {{user()?.name}}
+      </a>
+
+      <a routerLink="favorites" class="navBar-items-button">
+        <lucide-icon name="heart"></lucide-icon>
+        Любимое
+      </a>
+
+      <a routerLink="artists" class="navBar-items-button">
+        <lucide-icon name="mic-vocal"></lucide-icon>
+        Артисты
+      </a>
+
+    </div>
+  }
+
+</div>

@@ -1,5 +1,3 @@
-using System.Runtime.InteropServices.JavaScript;
-
 namespace KPCourseWork.Service;
 
 public class FileUploadService: IFileUploadService

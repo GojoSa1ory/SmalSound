@@ -25,7 +25,6 @@
 /Users/artem/Documents/programmingProjects/KPIAP/KPCourseWork/obj/Debug/net8.0/staticwebassets/msbuild.buildTransitive.KPCourseWork.props
 /Users/artem/Documents/programmingProjects/KPIAP/KPCourseWork/obj/Debug/net8.0/staticwebassets.pack.json
 /Users/artem/Documents/programmingProjects/KPIAP/KPCourseWork/obj/Debug/net8.0/scopedcss/bundle/KPCourseWork.styles.css
-/Users/artem/Documents/programmingProjects/KPIAP/KPCourseWork/obj/Debug/net8.0/KPCourseWork.csproj.CopyComplete
 /Users/artem/Documents/programmingProjects/KPIAP/KPCourseWork/obj/Debug/net8.0/KPCourseWork.dll
 /Users/artem/Documents/programmingProjects/KPIAP/KPCourseWork/obj/Debug/net8.0/refint/KPCourseWork.dll
 /Users/artem/Documents/programmingProjects/KPIAP/KPCourseWork/obj/Debug/net8.0/KPCourseWork.pdb
@@ -120,3 +119,4 @@
 /Users/artem/Documents/programmingProjects/KPIAP/KPCourseWork/bin/Debug/net8.0/Frontend/tsconfig.app.json
 /Users/artem/Documents/programmingProjects/KPIAP/KPCourseWork/bin/Debug/net8.0/Frontend/tsconfig.spec.json
 /Users/artem/Documents/programmingProjects/KPIAP/KPCourseWork/bin/Debug/net8.0/Frontend/package-lock.json
+/Users/artem/Documents/programmingProjects/KPIAP/KPCourseWork/obj/Debug/net8.0/KPCourse.7D99E7A4.Up2Date

@@ -51,7 +51,7 @@ export class AudioPlayerService {
     this.track.set({...track, isPlaying: true});
 
     //@ts-ignore
-    this.trackIndex = this.trackService.tracks().indexOf(this.track());
+    this.trackIndex = [...this.trackService.tracks()].indexOf(this.tracks().find(t => t.id === this.track()?.id));
   }
 
   setCurrentTime(newTime: number) {
@@ -69,36 +69,42 @@ export class AudioPlayerService {
     this.audio.ontimeupdate = () => {
       this.currentTime.set(this.audio.currentTime);
     };
+    this.audio.onloadedmetadata = () => {
+      this.duration.set(this.audio.duration);
+    };
   }
 
   play() {
 
     if (!this.audio || !this.track()) return;
 
-    this.duration.set(this.audio.duration)
-
     this.audio!.onended = () => {
       if (this.isLooping) {
-        this.audio!.currentTime = 0
-        this.audio!.play()
+        this.audio.loop = true;
+        this.audio.play()
       } else {
-        this.track.set({...this.track()!})
+        this.audio.loop = false;
+        this.stop()
+        this.track.set({...this.track()!, isPlaying: false});
         this.isPlayingState[this.track()!.id] = false;
+        this.nextTrack();
       }
     }
 
     if (this.audio!.src !== this.track()?.track) {
+      this.stop()
       this.audio!.src = this.track()!.track
     }
 
-    this.track.set({...this.track()!})
+    this.duration.set(this.audio.duration)
+    this.track.set({...this.track()!, isPlaying: true})
     this.isPlayingState[this.track()!.id] = true;
     this.audio?.play()
   }
 
   pause() {
     this.audio!.pause();
-    this.track.set({...this.track()!});
+    this.track.set({...this.track()!, isPlaying: false});
     this.isPlayingState[this.track()!.id] = false;
   }
 
@@ -107,7 +113,7 @@ export class AudioPlayerService {
     if (this.audio) {
       this.audio.pause();
       this.audio.currentTime = 0;
-      this.track.set({...this.track()!});
+      this.track.set({...this.track()!, isPlaying: false});
       this.isPlayingState[this.track()!.id] = false;
     }
   }

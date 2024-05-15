@@ -1,0 +1,58 @@
+//.container {
+//  display: flex;
+//  height: 100vh;
+//}
+//
+//.left-panel {
+//  height: 100%;
+//  right: 0;
+//  width: 200px; /* Ширина навигационной панели */
+//}
+//
+//.main-content {
+//  flex-grow: 1; /* Занимает всё доступное пространство */
+//  padding: 20px; /* Для отступов */
+//}
+//
+//.player {
+//  bottom: 0;
+//  width: 100%;
+//}
+
+$footer-height: 100px;
+$black: #000;
+$light-black: lighten($black, 8);
+
+.flex {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.wrap {
+  height: 100vh;
+
+  > .flex,
+  .footer {
+    width: 100%;
+  }
+
+  .sidebar {
+    min-width: 200px;
+    width: 20%;
+    background-color: $light-black;
+    height: calc(100vh - #{$footer-height} - 60px);
+  }
+
+  .main {
+    flex: 1;
+    height: calc(100vh - #{$footer-height});
+    overflow-y: auto;
+  }
+
+  .footer {
+    height: $footer-height;
+  }
+
+}
+
+
