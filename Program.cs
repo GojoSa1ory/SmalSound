@@ -5,6 +5,7 @@ global using KPCourseWork.Controllers;
 using System.Text;
 using KPCourseWork.Data;
 using KPCourseWork.Service;
+using KPCourseWork.Service.PlaylistService;
 using KPCourseWork.Service.TrackService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -78,6 +79,7 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<ITrackService, TrackService>();
 builder.Services.AddScoped<IFileUploadService, FileUploadService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IPlaylistService, PlaylistService>();
 
 var app = builder.Build();
 app.UseCors(b => b.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());

@@ -9,4 +9,5 @@ public class UserModel {
     // public string ProfilePoster {get; set;}
     public RoleModel Role { get; set; }
     public List<TrackModel> Tracks {get; set; }
+    public List<PlaylistModel>? Playlist { get; set; }
 }

@@ -1,4 +1,5 @@
 using AutoMapper;
+using KPCourseWork.Dto.PlaylistDto;
 using KPCourseWork.Dto.TrackDto;
 
 namespace KPCourseWork;
@@ -12,5 +13,9 @@ public class MapperCfg : Profile
         
         CreateMap<TrackModel, GetTrackDto>().ReverseMap();
         CreateMap<TrackModel, SetTrackDto>().ReverseMap();
+        
+        
+        CreateMap<PlaylistModel, GetPlaylistDto>().ReverseMap();
+        CreateMap<PlaylistModel, SetPlaylistDto>().ReverseMap();
     }
 }

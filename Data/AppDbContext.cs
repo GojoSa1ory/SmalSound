@@ -9,4 +9,5 @@ public class AppDbContext : DbContext
     public DbSet<UserModel> Users { get; set; }
     public DbSet<RoleModel> Roles { get; set; }
     public DbSet<TrackModel> Tracks { get; set; }
+    public DbSet<PlaylistModel> Playlists { get; set; }
 }

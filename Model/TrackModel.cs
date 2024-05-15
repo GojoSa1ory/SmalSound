@@ -7,4 +7,5 @@ public class TrackModel
     public string TrackImage { get; set; }
     public string Track { get; set; }
     public UserModel User { get; set; } //Artist
+    public List<PlaylistModel>? Playlist { get; set; }
 }
