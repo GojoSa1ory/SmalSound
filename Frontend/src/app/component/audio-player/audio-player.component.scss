@@ -9,8 +9,10 @@
 
 .track-info {
   display: flex;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
+  min-width: 130px;
+  width: 30%;
 }
 
 .track-info img {
@@ -33,6 +35,8 @@
 
 .audioPlayer-buttons {
   display: flex;
+  width: 40%;
+  max-width: 722px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -60,7 +64,30 @@
 }
 
 .audioPlayer-track-timer {
-  width: 420px;
+  // width: 420px;
+  // appearance: none;
+  // background-color: grey;
+  // border-radius: 20px;
+  height: 100%;
+  overflow: hidden;
+  -ms-touch-action: none;
+  touch-action: none;
+  width: 100%;
+  --bg-color: hsla(0,0%,100%,.3);
+  --fg-color: #fff;
+  --is-active-fg-color: #1db954;
+  --progress-bar-transform: 0%;
+  --progress-bar-height: 4px;
+  --progress-bar-radius: calc(var(--progress-bar-height)/2);
+}
+
+
+.other_settings {
+  display: flex;
+  justify-content: end;
+  align-items: end;
+  width: 30%;
+  min-width: 180px;
 }
 
 //.random_button {

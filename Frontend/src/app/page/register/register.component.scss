@@ -18,6 +18,8 @@
 
 .register-container {
   margin: 20px;
+  box-sizing: border-box;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;

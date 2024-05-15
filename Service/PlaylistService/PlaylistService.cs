@@ -11,11 +11,13 @@ public class PlaylistService: IPlaylistService
 
     private readonly AppDbContext _context;
     private readonly IMapper _mapper;
+    private readonly IFileUploadService _fileService;
     
-    public PlaylistService(AppDbContext context, IMapper mapper)
+    public PlaylistService(AppDbContext context, IMapper mapper, IFileUploadService fileService)
     {
         _context = context;
         _mapper = mapper;
+        _fileService = fileService;
     }
     
     public async Task<ServiceResponse<GetPlaylistDto>> CreatePlaylist(SetPlaylistDto newPlaylist, int userId)
@@ -152,11 +154,17 @@ public class PlaylistService: IPlaylistService
         try
         {
             var playlist = _context.Playlists.FirstOrDefault(p => p.Id == id && p.User.Id == userId);
-
+            
             if (playlist is null) throw new Exception("Playlist not found");
 
-            playlist.Name = newPlaylist.Name != playlist.Name && newPlaylist.Name != "" ? newPlaylist.Name : playlist.Name;
+            playlist.Name = newPlaylist.Name != playlist.Name && newPlaylist.Name is not null && newPlaylist.Name != "" ? newPlaylist.Name : playlist.Name;
 
+            if (newPlaylist.Image is not null)
+            {
+                string imagePath = await _fileService.UploadFile("Playlists", newPlaylist.Image);
+                playlist.Image = imagePath;
+            }
+            
             await _context.SaveChangesAsync();
         }
         catch (Exception e)

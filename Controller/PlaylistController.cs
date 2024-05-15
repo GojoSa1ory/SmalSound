@@ -53,6 +53,18 @@ public class PlaylistController: ControllerBase
     }
     
     [Authorize]
+    [HttpPatch("update/{playlistId}")]
+    public async Task<ActionResult<ServiceResponse<GetPlaylistDto>>> UpdatePlaylist([FromForm] UpdatePlaylistDto playlist, int playlistId)
+    {
+        int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+        var response = await _playlistService.UpdatePlaylist(playlist, playlistId, userId);
+        
+        if (!response.Success) return BadRequest(response);
+        
+        return response;
+    }
+    
+    [Authorize]
     [HttpPost("addTrack/{playlistId}/{trackId}")]
     public async Task<ActionResult<ServiceResponse<GetPlaylistDto>>> AddTrack(int playlistId, int trackId)
     {

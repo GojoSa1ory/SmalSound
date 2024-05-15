@@ -30,7 +30,9 @@
       <input class="audioPlayer-track-timer" type="range" [max]="duration()" [minLength]="duration()" [value]="currentTime()" (input)="handleSetTime($event)">
     </div>
 
-    <input type="range" [value]="currentVolume()" (input)="handleSetCurrentVolume($event)">
+    <div class="other_settings">
+      <input type="range" [value]="currentVolume()" (input)="handleSetCurrentVolume($event)">
+    </div>
   </div>
 }
 @else {

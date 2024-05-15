@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Frontend\src\component\" />
+    <Folder Include="Uploads\Playlists\" />
     <Folder Include="Uploads\TrackImage\" />
     <Folder Include="Uploads\Track\" />
     <Folder Include="Uploads\UserImage\" />
