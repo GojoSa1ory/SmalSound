@@ -32,6 +32,12 @@ export class UserService {
     return this.http.get<ServerResponseModel<UserModel>>(`${this.apiUrl}/user/profile`, {headers: headers} )
   }
 
+  logOutUser () {
+    localStorage.removeItem("token")
+    this.user.set(null)
+    this.isAuth.set(false)
+  }
+
   private createAuthHeaders () {
     return new HttpHeaders().set('Authorization', `Bearer ${localStorage.getItem("token")}`)
   }

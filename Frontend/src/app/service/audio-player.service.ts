@@ -6,17 +6,18 @@ import {TrackModel} from "../models/track.model";
   providedIn: "root",
 })
 export class AudioPlayerService {
+
   private audio!: HTMLAudioElement;
   private track: WritableSignal<TrackModel | null | undefined> = signal(null);
   private tracks: WritableSignal<TrackModel[] | []> = signal([]);
   private currentTime: WritableSignal<number> = signal(0);
   private currentVolume: WritableSignal<number> = signal(100);
   private duration: WritableSignal<number> = signal(0);
-  // isPlaying: WritableSignal<boolean> = signal(false);
   private isPlayingState: { [key: number]: boolean } = {};
 
   private trackIndex: number = 0;
   private isLooping: boolean = false;
+  private isRandom: boolean = false;
 
   constructor(private trackService: TrackService) {
     this.tracks = this.trackService.tracks
@@ -25,6 +26,10 @@ export class AudioPlayerService {
 
   setLooping() {
     this.isLooping = !this.isLooping;
+  }
+
+  setRandom () {
+    this.isRandom = !this.isRandom;
   }
 
   getCurrentTrack() {
@@ -82,6 +87,8 @@ export class AudioPlayerService {
       if (this.isLooping) {
         this.audio.loop = true;
         this.audio.play()
+      } if(this.isRandom){
+        this.randomTrack()
       } else {
         this.audio.loop = false;
         this.stop()
@@ -147,6 +154,13 @@ export class AudioPlayerService {
       this.play()
     }
 
+  }
+
+  randomTrack() {
+    this.stop()
+    this.trackIndex = Math.floor(Math.random() * this.tracks().length)
+    this.track.set(this.tracks()[this.trackIndex])
+    this.play()
   }
 
   private isLastTrack() {

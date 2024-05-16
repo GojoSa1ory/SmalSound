@@ -53,7 +53,7 @@
   color: white;
 }
 
-.audioPlayer-controll-buttons button {
+.audioPlayer-controll-button {
   border: none;
   color: white;
   display: flex;
@@ -61,46 +61,88 @@
   align-items: center;
   background: none;
   margin: 0 5px;
+  transition-duration: 170ms;
+}
+
+.audioPlayer-controll-button:hover {
+  color: #eb055a;
 }
 
 .audioPlayer-track-timer {
-  // width: 420px;
-  // appearance: none;
-  // background-color: grey;
-  // border-radius: 20px;
-  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  outline: none;
+  width: 420px;
+  appearance: none;
+  border-radius: 20px;
   overflow: hidden;
-  -ms-touch-action: none;
-  touch-action: none;
-  width: 100%;
-  --bg-color: hsla(0,0%,100%,.3);
-  --fg-color: #fff;
-  --is-active-fg-color: #1db954;
-  --progress-bar-transform: 0%;
-  --progress-bar-height: 4px;
-  --progress-bar-radius: calc(var(--progress-bar-height)/2);
+}
+
+.audioPlayer-track-timer::-webkit-slider-runnable-track {
+  height: 8px;
+  background: #ccc;
+  border-radius: 16px;
+}
+
+.audioPlayer-track-timer::-webkit-slider-thumb {
+    /* removing default appearance */
+    -webkit-appearance: none;
+    appearance: none;
+    /* creating a custom design */
+    // height: 10px;
+    width: 10px;
+    background-color: #eb055a;
+    border-radius: 50%;
+    // border: 2px solid ;
+    /*  slider progress trick  */
+    box-shadow: -420px 0 0 420px #eb055a;
+}
+
+.volume_range {
+  // display: flex;
+  // justify-content: center;
+  // align-items: center;
+  outline: none;
+  appearance: none;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 5px;
+  margin-left: 8px;
+}
+
+.volume_range::-webkit-slider-runnable-track {
+  height: 8px;
+  background: #ccc;
+  border-radius: 16px;
+}
+
+.volume_range::-webkit-slider-thumb {
+    /* removing default appearance */
+    -webkit-appearance: none;
+    appearance: none;
+    /* creating a custom design */
+    // height: 10px;
+    width: 10px;
+    background-color: #eb055a;
+    border-radius: 50%;
+    // border: 2px solid ;
+    /*  slider progress trick  */
+    box-shadow: -420px 0 0 420px #eb055a;
 }
 
 
 .other_settings {
   display: flex;
   justify-content: end;
-  align-items: end;
+  align-items: center;
   width: 30%;
   min-width: 180px;
 }
 
-//.random_button {
-//  font-size: 25px;
-//}
-//.prev-next_button {
-//  font-size: 20px;
-//}
-//
-//.play_button {
-//  font-size: 25px;
-//}
-//
-//.loop_button {
-//  font-size: 24px;
-//}
+.volume {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}

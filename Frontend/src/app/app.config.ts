@@ -11,7 +11,15 @@ import {
   UserPlus,
   CircleUser,
   Heart,
-  MicVocal
+  MicVocal,
+  Volume2,
+  Play,
+  Pause,
+  ChevronFirst,
+  ChevronLast,
+  Repeat,
+  Shuffle,
+  LogOut
 } from "lucide-angular";
 
 export const appConfig: ApplicationConfig = {
@@ -25,6 +33,14 @@ export const appConfig: ApplicationConfig = {
       UserPlus,
       CircleUser,
       Heart,
-      MicVocal
+      MicVocal,
+      Volume2,
+      Play,
+      Pause,
+      ChevronFirst,
+      ChevronLast,
+      Repeat,
+      Shuffle,
+      LogOut
     })))]
 };

@@ -23,4 +23,7 @@ export class NavBarComponent {
     this.user = this.userService.user
   }
 
+  handleLogOut () {
+    this.userService.logOutUser()
+  }
 }

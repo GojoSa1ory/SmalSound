@@ -1,11 +1,14 @@
 import {Component, WritableSignal, signal} from "@angular/core";
 import {TrackModel} from "../../models/track.model";
 import {AudioPlayerService} from "../../service/audio-player.service";
+import { LucideAngularModule } from "lucide-angular";
 
 @Component({
   selector: "app-audio-player",
   standalone: true,
-  imports: [],
+  imports: [
+    LucideAngularModule
+  ],
   templateUrl: "./audio-player.component.html",
   styleUrl: "./audio-player.component.scss",
 })
@@ -46,6 +49,10 @@ export class AudioPlayerComponent {
     this.audioService.setLooping()
   }
 
+  handleRandomTrack () {
+    this.audioService.setRandom()
+  }
+
   handleSetTime(event: Event) {
     const newTime = (event.target as HTMLInputElement).valueAsNumber;
     this.audioService.setCurrentTime(newTime);
@@ -55,4 +62,5 @@ export class AudioPlayerComponent {
     const newVolume = (event.target as HTMLInputElement).valueAsNumber;
     this.audioService.setCurrentVolume(newVolume);
   }
+
 }

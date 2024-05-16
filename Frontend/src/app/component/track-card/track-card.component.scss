@@ -28,13 +28,19 @@
   margin-left: 10px;
 }
 
-.trackCard button {
+.trackCard button img{
+  width: 20px;
+}
+
+.play_btn {
   border-radius: 15px;
   text-align: center;
   border: none;
   background: none;
+  color: white;
+  transition-duration: 175ms;
 }
 
-.trackCard button img{
-  width: 20px;
+.play_btn:hover {
+  color: #eb055a;
 }

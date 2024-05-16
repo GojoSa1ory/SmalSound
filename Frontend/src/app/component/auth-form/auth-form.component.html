@@ -9,7 +9,7 @@
     }
 
     <label>Введите пароль</label>
-    <input [value]="user.password" (input)="handleSetCurrentPassword($event)">
+    <input [value]="user.password" type="password" (input)="handleSetCurrentPassword($event)">
 
     <button class="formButton" (click)="handleClick($event)">{{isReg ? "Зарегистрироваться" : "Авторизоваться"}}</button>
   </form>

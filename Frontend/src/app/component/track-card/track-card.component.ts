@@ -1,11 +1,14 @@
 import {Component, Input, OnInit, WritableSignal} from '@angular/core';
 import {TrackModel} from "../../models/track.model";
 import {AudioPlayerService} from "../../service/audio-player.service";
+import {LucideAngularModule} from "lucide-angular";
 
 @Component({
   selector: 'app-track-card',
   standalone: true,
-  imports: [],
+  imports: [
+    LucideAngularModule
+  ],
   templateUrl: './track-card.component.html',
   styleUrl: './track-card.component.scss'
 })

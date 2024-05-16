@@ -3,38 +3,49 @@
     <div class="track-info">
       <img [src]="track()?.trackImage" width="60px"/>
       <div class="track-info-text">
-        <span>{{track()?.name}}</span>
-        <span>{{track()?.user!.name}}</span>
+        <span>{{ track()?.name }}</span>
+        <span>{{ track()?.user!.name }}</span>
       </div>
     </div>
 
 
     <div class="audioPlayer-buttons">
+
       <div class="audioPlayer-controll-buttons">
-        <button class="random_button" (click)="handlePrevTrack()">
-          <img src="assets/navImages/random.svg">
+
+        <button class="audioPlayer-controll-button" (click)="handleRandomTrack()">
+          <lucide-angular class="my-icon" name="shuffle"/>
         </button>
-        <button class="prev-next_button" (click)="handlePrevTrack()">
-          <img src="assets/navImages/prev.svg">
+
+        <button class="audioPlayer-controll-button" (click)="handlePrevTrack()">
+          <lucide-angular class="my-icon" name="chevron-first"/>
         </button>
-        <button class="play_button" (click)="handlePlay()">
-          <img src="{{track()?.isPlaying ? 'assets/navImages/pause.svg' : 'assets/navImages/play.svg'}}">
+
+        <button class="audioPlayer-controll-button" (click)="handlePlay()">
+          <lucide-angular class="my-icon" name="{{track()?.isPlaying ? 'pause' : 'play'}}"/>
         </button>
-        <button class="prev-next_button" (click)="handleNextTrack()">
-          <img src="assets/navImages/next.svg">
+
+        <button class="audioPlayer-controll-button" (click)="handleNextTrack()">
+          <lucide-angular name="chevron-last" class="my-icon"/>
         </button>
-        <button class="loop_button" (click)="handleLoop()">
-          <img src="assets/navImages/loop.svg">
+
+        <button class="audioPlayer-controll-button" (click)="handleLoop()">
+          <lucide-angular name="repeat" class="my-icon"/>
         </button>
+
       </div>
-      <input class="audioPlayer-track-timer" type="range" [max]="duration()" [minLength]="duration()" [value]="currentTime()" (input)="handleSetTime($event)">
+
+      <input class="audioPlayer-track-timer" type="range" [max]="duration()" [minLength]="duration()"
+             [value]="currentTime()" (input)="handleSetTime($event)">
     </div>
 
     <div class="other_settings">
-      <input type="range" [value]="currentVolume()" (input)="handleSetCurrentVolume($event)">
+      <div class="volume">
+        <lucide-icon name="volume-2"  class="my-icon" [size]="20"></lucide-icon>
+        <input type="range" class="volume_range" [value]="currentVolume()" (input)="handleSetCurrentVolume($event)">
+      </div>
     </div>
   </div>
-}
-@else {
+} @else {
   <div class="audioPlayer-container"></div>
 }

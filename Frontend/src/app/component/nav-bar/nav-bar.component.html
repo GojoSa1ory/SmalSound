@@ -18,11 +18,11 @@
     <div class="navBar-items-container">
       <a class="navBar-items-button" routerLink="login">
         <lucide-icon name="shield-check"></lucide-icon>
-        Log in
+        Войти
       </a>
       <a class="navBar-items-button" routerLink="register">
         <lucide-icon name="user-plus"></lucide-icon>
-        Register
+        Регистрация
       </a>
     </div>
   } @else {
@@ -46,6 +46,11 @@
         <lucide-icon name="mic-vocal"></lucide-icon>
         Артисты
       </a>
+
+      <button (click)="handleLogOut()" class="navBar-items-button">
+        <lucide-icon name="log-out"></lucide-icon>
+        Выйти
+      </button>
 
     </div>
   }
