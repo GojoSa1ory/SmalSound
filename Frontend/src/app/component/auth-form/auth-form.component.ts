@@ -1,6 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {AuthRequestModel} from "../../models/auth.model";
-import {UserService} from "../../service/user.service";
+import {Router} from "@angular/router";
+import {AuthService} from "../../service/auth.service";
 
 @Component({
   selector: 'app-auth-form',
@@ -19,8 +20,10 @@ export class AuthFormComponent {
 
   @Input() isReg: boolean = false;
 
-  constructor(private userService: UserService) {
-  }
+  constructor(
+    private authService: AuthService
+  )
+  {}
 
   handleSetCurrentName (event: Event) {
     const newName = (event.target as HTMLInputElement).value
@@ -39,22 +42,7 @@ export class AuthFormComponent {
 
   handleClick (event: Event) {
     event.preventDefault()
-
-    this.isReg ? this.userService.registerUser(this.user).subscribe({
-      next: value => {
-        localStorage.setItem("token", value.data!.token)
-        this.userService.user.set(value.data!.user)
-        this.userService.isAuth.set(true)
-      },
-      error: err => console.log(err)
-    }) : this.userService.loginUser(this.user).subscribe({
-      next: value => {
-        localStorage.setItem("token", value.data!.token)
-        this.userService.user.set(value.data!.user)
-        this.userService.isAuth.set(true)
-      },
-      error: err => console.log(err)
-    })
+    this.isReg ? this.authService.registerUser(this.user) : this.authService.loginUser(this.user)
   }
 
 

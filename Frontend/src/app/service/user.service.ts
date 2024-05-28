@@ -2,9 +2,9 @@ import {Injectable, signal, WritableSignal} from '@angular/core';
 import {UserModel} from "../models/user.model";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../environment/environment";
-import {Observable} from "rxjs";
+import {Observable, Subscription} from "rxjs";
 import {ServerResponseModel} from "../models/serverResponse.model";
-import {AuthRequestModel, AuthResponseModel} from "../models/auth.model";
+import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -12,33 +12,29 @@ import {AuthRequestModel, AuthResponseModel} from "../models/auth.model";
 export class UserService {
 
   private apiUrl: string = environment.apiUrl
-  user: WritableSignal<UserModel | null> = signal(null)
-  isAuth: WritableSignal<boolean> = signal(false)
+  private user: WritableSignal<UserModel | null> = signal(null)
 
-  constructor(private http: HttpClient) { }
+  get user$ () {
+    return this.user
+  }
+  constructor(
+    private http: HttpClient,
+    private router: Router
+  ) { }
 
-  loginUser (user: AuthRequestModel):Observable<ServerResponseModel<AuthResponseModel>> {
-    return this.http.post<ServerResponseModel<AuthResponseModel>>(`${this.apiUrl}/auth/login`, user)
+  getUserProfile (userId: number):Subscription {
+    return this.http.get<ServerResponseModel<UserModel>>(`${this.apiUrl}/user/user/${userId}`).subscribe({
+      next: value => {
+        this.user.set(value.data!)
+      },
+      error: err => {
+        this.router.navigate(['404'])
+        console.log(err)
+      }
+    })
   }
 
-  registerUser (user: AuthRequestModel):Observable<ServerResponseModel<AuthResponseModel>> {
-    return this.http.post<ServerResponseModel<AuthResponseModel>>(`${this.apiUrl}/auth/register`, user)
-  }
-
-  getUserProfile ():Observable<ServerResponseModel<UserModel>> {
-
-    const headers = this.createAuthHeaders()
-
-    return this.http.get<ServerResponseModel<UserModel>>(`${this.apiUrl}/user/profile`, {headers: headers} )
-  }
-
-  logOutUser () {
-    localStorage.removeItem("token")
-    this.user.set(null)
-    this.isAuth.set(false)
-  }
-
-  private createAuthHeaders () {
+  private createAuthHeaders (): HttpHeaders {
     return new HttpHeaders().set('Authorization', `Bearer ${localStorage.getItem("token")}`)
   }
 }

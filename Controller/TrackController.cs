@@ -1,4 +1,5 @@
 using System.Security.Claims;
+using KPCourseWork.Dto;
 using KPCourseWork.Dto.TrackDto;
 using KPCourseWork.Service.TrackService;
 using Microsoft.AspNetCore.Authorization;
@@ -17,10 +18,13 @@ public class TrackController: ControllerBase
         _service = service;
     }
     
-    [Authorize(Roles = "user, admin, artist")]
+    [Authorize(Roles = "user, admin")]
     [HttpPost("create")]
     public async Task<ActionResult<ServiceResponse<GetTrackDto>>> Create([FromForm] SetTrackDto track)
     {
+        Console.WriteLine(track.Name);
+        Console.WriteLine(track.Track);
+        Console.WriteLine(track.TrackImage);
         int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
         
         var response = await _service.UploadTrack(track, userId);
@@ -45,7 +49,7 @@ public class TrackController: ControllerBase
     {
         int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
         
-        var response = await _service.GetAllTracks();
+        var response = await _service.GetAllUserTracks(userId);
 
         if (!response.Success) return BadRequest(response);
 
@@ -62,26 +66,30 @@ public class TrackController: ControllerBase
         return Ok(response);
     }
 
-    [HttpGet("search/{request}")]
-    public async Task<ActionResult<ServiceResponse<List<GetTrackDto>>>> SearchTrack(string request)
+    [Authorize]
+    [HttpPatch("update/{trackId}")]
+    public async Task<ActionResult<ServiceResponse<GetTrackDto>>> UpdateTrack([FromForm] UpdateTrackDto track, int trackId) {
+
+        int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+
+        var response = await _service.UpdateTrack(track, trackId, userId);
+
+        if(!response.Success) return BadRequest(response);
+
+        return Ok(response);
+    }
+
+    [HttpGet("genres")]
+    public async Task<ActionResult<ServiceResponse<List<GetGenreDto>>>> GetGenres()
     {
-        var response = await _service.SearchTrack(request);
+        var response = await _service.GetGenres();
 
         if (!response.Success) return BadRequest(response);
         
-        return response;
+        return Ok(response);
     }
     
-    [HttpGet("sort/{sortMethod}")]
-    public async Task<ActionResult<ServiceResponse<List<GetTrackDto>>>> SortTrack(string sortMethod)
-    {
-        var response = await _service.SortTrack(sortMethod);
-
-        if (!response.Success) return BadRequest(response);
-        
-        return response;
-    }
-
+    [Authorize]
     [HttpDelete("delete/{trackId}")]
     public async Task<ActionResult<ServiceResponse<string>>> DeleteTrack(int trackId)
     {

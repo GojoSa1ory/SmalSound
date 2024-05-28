@@ -5,13 +5,24 @@
 
     <a routerLink="/" class="navBar-items-button">
       <lucide-icon name="home" size="24"/>
-       Главная
+      Главная
     </a>
 
-    <button class="navBar-items-button">
+    <a routerLink="/search" class="navBar-items-button">
       <lucide-icon name="search" size="24"/>
       Поиск
-    </button>
+    </a>
+
+  </div>
+
+  <div class="navBar-items-container">
+    <a
+      routerLink="/uploadTrack"
+      class="navBar-items-button">
+        <lucide-icon name="download"></lucide-icon>
+        Опубликовать трек
+    </a>
+
   </div>
 
   @if (!isAuth()) {
@@ -28,13 +39,13 @@
   } @else {
     <div class="navBar-items-container">
 
-      <a class="navBar-items-button" routerLink="/profile">
-        @if (user()?.profilePicture != "string") {
-          <img [src]="user()?.profilePicture" class="navBar-items-userImg">
-        } @else {
+      <a class="navBar-items-button" routerLink="/user/{{user()?.id}}">
+        @if (user()?.profilePicture === "string" || user()?.profilePicture === undefined || user()?.profilePicture === null) {
           <lucide-icon name="circle-user"></lucide-icon>
+        } @else {
+          <img [src]="user()?.profilePicture" class="navBar-items-userImg">
         }
-        {{user()?.name}}
+        {{ user()?.name }}
       </a>
 
       <a routerLink="favorites" class="navBar-items-button">
@@ -45,6 +56,11 @@
       <a routerLink="artists" class="navBar-items-button">
         <lucide-icon name="mic-vocal"></lucide-icon>
         Артисты
+      </a>
+
+      <a routerLink="myPublications" class="navBar-items-button">
+        <lucide-icon name="book-check"></lucide-icon>
+        Мои публикации
       </a>
 
       <button (click)="handleLogOut()" class="navBar-items-button">

@@ -1,0 +1,27 @@
+.user-card-layout {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px;
+  background-color: #18152d;
+  padding: 10px;
+  margin: 10px;
+  transition-duration: 200ms;
+}
+
+.user-card-image-layout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.user-card-image {
+  width: 100px;
+  border-radius: 50%;
+}
+
+.user-card-layout:hover {
+  scale: 105%;
+}

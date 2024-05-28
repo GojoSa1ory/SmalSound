@@ -7,7 +7,6 @@ namespace KPCourseWork.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-[Authorize]
 public class UserController: ControllerBase
 {
     private readonly IUserService _service;
@@ -17,19 +16,19 @@ public class UserController: ControllerBase
         _service = service;
     }
 
-    [HttpGet("profile")]
-    public async Task<ActionResult<ServiceResponse<GetUserDto>>> GetProfile()
+    [HttpGet("user/{userId}")]
+    public async Task<ActionResult<ServiceResponse<GetUserDto>>> GetUser(int userId)
     {
-        int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
-
         var response = await _service.GetProfile(userId);
 
         if (!response.Success) return BadRequest(response);
         
         return response;
     }
-
+    
+    
     [HttpPatch("update")]
+    [Authorize]
     public async Task<ActionResult<ServiceResponse<GetUserDto>>> UpdateUserInfo([FromForm] UpdateUserDto newUser)
     {
         int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);

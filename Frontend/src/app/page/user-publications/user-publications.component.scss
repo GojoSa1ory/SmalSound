@@ -1,0 +1,20 @@
+.userPublications-container {
+  margin: 20px;
+  padding: 20px;
+  border-radius: 15px;
+  background-color: #1e1a3b;
+}
+
+.addTrack_btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 16px;
+  transition-duration: 175ms;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.addTrack_btn:hover {
+  background-color: #eb055a;
+}

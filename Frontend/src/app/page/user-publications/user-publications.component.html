@@ -1,0 +1,11 @@
+<div class="userPublications-container">
+
+  <h1>Your publications</h1>
+
+  <button class="addTrack_btn">Add track</button>
+
+  @for (track of tracks(); track $index) {
+    <app-track-card [track]="track"/>
+  }
+
+</div>

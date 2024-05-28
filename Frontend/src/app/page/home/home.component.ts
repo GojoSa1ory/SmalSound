@@ -1,7 +1,7 @@
 import {Component, OnInit, signal, WritableSignal} from '@angular/core';
 import {TrackService} from "../../service/track.service";
 import {TrackModel} from "../../models/track.model";
-import {TrackCardComponent} from "../../component/track-card/track-card.component";
+import { TrackCardComponent } from '../../component/UI/track-card/track-card.component';
 
 @Component({
   selector: 'app-home',

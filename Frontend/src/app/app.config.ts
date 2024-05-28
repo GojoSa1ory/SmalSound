@@ -19,7 +19,10 @@ import {
   ChevronLast,
   Repeat,
   Shuffle,
-  LogOut
+  LogOut,
+  BookCheck,
+  X,
+  Download
 } from "lucide-angular";
 
 export const appConfig: ApplicationConfig = {
@@ -41,6 +44,9 @@ export const appConfig: ApplicationConfig = {
       ChevronLast,
       Repeat,
       Shuffle,
-      LogOut
+      LogOut,
+      BookCheck,
+      X,
+      Download
     })))]
 };

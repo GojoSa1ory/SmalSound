@@ -28,7 +28,7 @@ public class AuthService : IAuthService
         try
         {
             var checkUser = _context.Users.FirstOrDefault(u => u.Email == user.Email || u.Name == user.Name);
-            var role = _context.Roles.FirstOrDefault(r => r.Id == 3);
+            var role = _context.Roles.FirstOrDefault(r => r.Id == 2);
 
             if (checkUser is not null) throw new Exception("This email is already exist");
 
@@ -82,6 +82,27 @@ public class AuthService : IAuthService
             };
 
             response.Data = authDto;
+        }
+        catch (Exception e)
+        {
+            response.Message = e.Message;
+            response.Success = false;
+        }
+
+        return response;
+    }
+
+    public async Task<ServiceResponse<GetUserDto>> VerifyUser(int userId)
+    {
+        ServiceResponse<GetUserDto> response = new();
+
+        try
+        {
+            var user = _context.Users.FirstOrDefault(u => u.Id == userId);
+
+            if (user is null) throw new Exception("User not found");
+
+            response.Data = _mapper.Map<GetUserDto>(user);
         }
         catch (Exception e)
         {

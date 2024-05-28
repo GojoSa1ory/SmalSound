@@ -1,15 +1,16 @@
+<form>
+  <label>Введите имя</label>
+  <input [value]="user.name" class="custom-input" type="text" (input)="handleSetCurrentName($event)"/>
 
-  <form>
-    <label>Введите имя</label>
-    <input [value]="user.name" (input)="handleSetCurrentName($event)" >
+  @if (isReg) {
+    <label>Введите почту</label>
+    <input [value]="user.email" class="custom-input" type="email" (input)="handleSetCurrentEmail($event)"/>
+  }
 
-    @if (isReg) {
-      <label>Введите почту</label>
-      <input [value]="user.email" (input)="handleSetCurrentEmail($event)">
-    }
+  <label>Введите пароль</label>
+  <input [value]="user.password" class="custom-input" type="password" (input)="handleSetCurrentPassword($event)"/>
 
-    <label>Введите пароль</label>
-    <input [value]="user.password" type="password" (input)="handleSetCurrentPassword($event)">
-
-    <button class="formButton" (click)="handleClick($event)">{{isReg ? "Зарегистрироваться" : "Авторизоваться"}}</button>
-  </form>
+  <button class="formButton" (click)="handleClick($event)">
+    {{ isReg ? "Зарегистрироваться" : "Авторизоваться" }}
+  </button>
+</form>

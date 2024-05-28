@@ -1,0 +1,16 @@
+<div class="trackCard">
+
+  <div class="trackInfo">
+    <img [src]="track.trackImage">
+
+    <div class="trackInfo-text">
+      <span>{{track.name}}</span>
+      <a routerLink="/user/{{track.user.id}}">{{track.user.name}}</a>
+    </div>
+  </div>
+
+    <button class="play_btn" (click)="handlePlay()">
+      <lucide-icon name="{{isPlaying() ? 'pause' : 'play'}}"/>
+    </button>
+
+</div>

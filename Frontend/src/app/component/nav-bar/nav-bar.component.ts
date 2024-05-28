@@ -1,9 +1,9 @@
 import {Component, signal, WritableSignal} from '@angular/core';
 import {RouterLink} from "@angular/router";
-import {LucideAngularModule, Home} from "lucide-angular";
-import {UserService} from "../../service/user.service";
+import {LucideAngularModule} from "lucide-angular";
 import {UserModel} from "../../models/user.model";
-import {SIGNAL} from "@angular/core/primitives/signals";
+import {ModalService} from "../../service/modal.service";
+import {AuthService} from "../../service/auth.service";
 
 @Component({
   selector: 'app-nav-bar',
@@ -16,14 +16,19 @@ import {SIGNAL} from "@angular/core/primitives/signals";
   styleUrl: './nav-bar.component.scss'
 })
 export class NavBarComponent {
+
   isAuth!: WritableSignal<boolean>
   user: WritableSignal<UserModel | null | undefined> = signal(null)
-  constructor(private userService: UserService) {
-    this.isAuth = this.userService.isAuth
-    this.user = this.userService.user
+  constructor(
+    private authService: AuthService,
+    private modalService: ModalService
+  ) {
+    this.isAuth = this.authService.isAuth$
+    this.user = this.authService.user$
   }
 
   handleLogOut () {
-    this.userService.logOutUser()
+    this.authService.logOutUser()
   }
+
 }

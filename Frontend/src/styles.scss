@@ -12,16 +12,25 @@
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: none; 
+  background: none;
 }
- 
+
 /* Handle */
 ::-webkit-scrollbar-thumb {
   background: #eb055a;
   border-radius: 20px;
 }
 
+a {
+  text-decoration: none;
+  color: white;
+  transition-duration: 175ms;
+}
 
+a:hover {
+  color: #eb055a;
+  font-weight: bold;
+}
 
 body {
   padding: 0;
@@ -32,4 +41,18 @@ body {
   //background-color: #100f22;
   //background-color: #1e1a3b; // for track card
   background-color: #12111f;
+}
+
+.custom-input {
+  box-sizing: border-box;
+  width: 100%;
+  margin: 10px 0;
+  height: 35px;
+  font-size: 15px;
+  border: none;
+  color: white;
+  border-radius:10px;
+  outline: none;
+  padding: 5px;
+  background-color: #201c43;
 }

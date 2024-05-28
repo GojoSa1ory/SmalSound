@@ -1,0 +1,16 @@
+@if (isVisible()) {
+  <button (click)="close()" class="modal-bg"></button>
+  <div class="modal-layout">
+    <div class="modal-header">
+      <h1>Modal</h1>
+      <button class="modal-close-btn" (click)="close()">
+        <lucide-icon  color="white" name="x"></lucide-icon>
+      </button>
+
+    </div>
+    <div class="modal-content">
+      <ng-container *ngComponentOutlet="loadComponent()"/>
+    </div>
+
+  </div>
+}

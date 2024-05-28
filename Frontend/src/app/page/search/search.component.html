@@ -1,0 +1,37 @@
+<div class="search-page-layout">
+
+  <div class="search-page-input">
+    <input [value]="request" placeholder="Запрос" class="custom-input" type="text" (input)="getSearch($event)"/>
+  </div>
+
+  <div class="search-genres">
+    @for (genre of genres(); track $index) {
+      <button class="genres-button" (click)="filterTrack(genre.id)">{{genre.name}}</button>
+    }
+  </div>
+
+  <select class="sort-select" (change)="sortTrack($event)">
+    <option value="0">Выберите тип сортировки</option>
+    <option value="dateTime">По дате загрузки</option>
+    <option value="listeners">По кол-ву прослушиваний</option>
+  </select>
+
+  @if (result()?.user) {
+    <div class="user-search-result">
+      @for (user of result()?.user; track $index) {
+        <app-user-card [user]="user"/>
+      }
+    </div>
+  }
+
+  @if (result()?.tracks) {
+    <div class="tracks-search-result">
+      @for (track of result()?.tracks; track $index) {
+        <app-track-card [track]="track"/>
+      }
+    </div>
+  }
+  @if (error()) {
+    <p>Ничего не найдено</p>
+  }
+</div>
