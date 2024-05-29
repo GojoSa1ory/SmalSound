@@ -22,7 +22,9 @@ import {
   LogOut,
   BookCheck,
   X,
-  Download
+  Download,
+  SquarePlus,
+  Ellipsis,
 } from "lucide-angular";
 
 export const appConfig: ApplicationConfig = {
@@ -47,6 +49,8 @@ export const appConfig: ApplicationConfig = {
       LogOut,
       BookCheck,
       X,
-      Download
+      Download,
+      SquarePlus,
+      Ellipsis,
     })))]
 };

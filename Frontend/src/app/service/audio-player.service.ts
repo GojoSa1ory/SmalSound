@@ -9,7 +9,7 @@ export class AudioPlayerService {
 
   private audio!: HTMLAudioElement;
   private track: WritableSignal<TrackModel | null | undefined> = signal(null);
-  private tracks: WritableSignal<TrackModel[] | []> = signal([]);
+  tracks: WritableSignal<TrackModel[] | []> = signal([]);
   private currentTime: WritableSignal<number> = signal(0);
   private currentVolume: WritableSignal<number> = signal(100);
   private duration: WritableSignal<number> = signal(0);

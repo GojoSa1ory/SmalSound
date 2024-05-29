@@ -9,8 +9,22 @@
     </div>
   </div>
 
-    <button class="play_btn" (click)="handlePlay()">
+  <div class="trackCard-buttons">
+
+    <button class="trackCard_btn">
+      <lucide-icon name="ellipsis"></lucide-icon>
+    </button>
+
+    <button class="trackCard_btn">
+      <lucide-icon name="heart"></lucide-icon>
+    </button>
+
+    <button class="trackCard_btn" (click)="handlePlay()">
       <lucide-icon name="{{isPlaying() ? 'pause' : 'play'}}"/>
     </button>
+
+  </div>
+
+
 
 </div>

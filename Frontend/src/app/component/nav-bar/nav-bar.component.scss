@@ -18,8 +18,9 @@
 
 .navBar-container {
   background-color: #18152d;
-  padding: 30px;
+  //padding: 30px;
   display: flex;
+  overflow-y: auto;
   height: 100%;
   flex-direction: column;
   justify-content: start;
@@ -44,6 +45,14 @@
 
 .navBar-items-container {
   display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.navBar-items {
+  display: flex;
+  box-sizing: border-box;
   flex-direction: column;
   justify-content: center;
   align-items: start;

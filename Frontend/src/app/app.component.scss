@@ -42,7 +42,7 @@ $light-black: lighten($black, 8);
     min-width: 200px;
     width: 20%;
     background-color: $light-black;
-    height: calc(100vh - #{$footer-height});
+    height: calc(100vh - #{$footer-height} - 0px);
     box-sizing: border-box;
     //height: 100%;
   }
@@ -50,12 +50,13 @@ $light-black: lighten($black, 8);
   .main {
     flex: 1;
     margin: 20px;
-    height: calc(100vh - #{$footer-height});
+    height: calc(100vh - #{$footer-height} - 40px);
     overflow-y: auto;
   }
 
   .footer {
-    position: fixed;
+    position: absolute;
+    z-index: 9;
     bottom: 0;
     height: $footer-height;
   }

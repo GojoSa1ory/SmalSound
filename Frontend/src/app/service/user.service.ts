@@ -5,6 +5,7 @@ import {environment} from "../../environment/environment";
 import {Observable, Subscription} from "rxjs";
 import {ServerResponseModel} from "../models/serverResponse.model";
 import {Router} from "@angular/router";
+import {NotificationService} from "./notification.service";
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,8 @@ export class UserService {
   }
   constructor(
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private notificationService: NotificationService
   ) { }
 
   getUserProfile (userId: number):Subscription {

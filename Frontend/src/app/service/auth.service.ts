@@ -6,6 +6,7 @@ import {Router} from "@angular/router";
 import {AuthRequestModel, AuthResponseModel} from "../models/auth.model";
 import {Subscription} from "rxjs";
 import {ServerResponseModel} from "../models/serverResponse.model";
+import {NotificationService} from "./notification.service";
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +27,8 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private notificationService: NotificationService
   ) { }
 
   loginUser (user: AuthRequestModel): Subscription {
@@ -41,6 +43,8 @@ export class AuthService {
         console.log(err)
         localStorage.removeItem("token")
         this.isAuth.set(false)
+        this.notificationService.showNotification(true, "Неверные данные пользователя")
+        setTimeout(() => {this.notificationService.closeNotification()}, 2000)
       }
     })
   }
@@ -57,6 +61,8 @@ export class AuthService {
         console.log(err)
         localStorage.removeItem("token")
         this.isAuth.set(false)
+        this.notificationService.showNotification(true, "Неверные данные")
+        setTimeout(() => {this.notificationService.closeNotification()}, 2000)
       }
     })
   }

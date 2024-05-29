@@ -1,39 +1,53 @@
 <div class="uploadTrack-layout">
-  <form class="uploadTrack-track-info" (submit)="uploadTrack($event)">
-    <div class="file-section">
-      @if (imageUrl) {
-        <img [src]="imageUrl" class="uploadTrack-track-info-image"/>
-      } @else {
+  <div class="uploadTrack-track">
+
+    <h1>Загрузите свой трек</h1>
+
+    <form class="uploadTrack-track-info" (submit)="uploadTrack($event)">
+
+      <div class="file-section">
+        @if (imageUrl) {
+          <img [src]="imageUrl" class="uploadTrack-track-info-image"/>
+        } @else {
+          <label class="input-file">
+            <input (input)="setTrackImage($event)" type="file"/>
+            <span>Загрузите обложку</span>
+          </label>
+        }
         <label class="input-file">
-          <input (input)="setTrackImage($event)" type="file"/>
-          <span>Загрузите обложку</span>
+          <input
+            type="file"
+            id="uploadTrack"
+            (change)="setTrack($event)"
+          />
+          @if (selectedTrack) {
+            <span>Трек загружен</span>
+          } @else {
+            <span>Загрузите трек</span>
+          }
         </label>
-      }
-      <label class="input-file">
+      </div>
+
+      <div class="track-info">
         <input
-          type="file"
-          id="uploadTrack"
-          (change)="setTrack($event)"
+          [value]="track.name"
+          placeholder="Название трека"
+          class="custom-input"
+          type="text"
+          (input)="setTrackName($event)"
         />
-        <span>Загрузите трек</span>
-      </label>
-    </div>
 
-    <input
-      [value]="track.name"
-      placeholder="Название трека"
-      class="custom-input"
-      type="text"
-      (input)="setTrackName($event)"
-    />
+        <select class="select-genre" (change)="setGenre($event)">
+          <option value="{0}">Выберите жанр</option>
+          @for (genre of genres(); track $index) {
+            <option value="{{genre.id}}">{{genre.name}}</option>
+          }
+        </select>
+      </div>
 
-    <select (change)="setGenre($event)">
-      <option value="{0}">Выберите жанр</option>
-      @for (genre of genres(); track $index) {
-        <option value="{{genre.id}}">{{genre.name}}</option>
-      }
-    </select>
+      <button class="submit-button" type="submit">Загрузить</button>
+    </form>
+  </div>
 
-    <button class="submit-button" type="submit">Загрузить</button>
-  </form>
+
 </div>

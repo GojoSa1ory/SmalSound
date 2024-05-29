@@ -8,6 +8,7 @@ import {NotFoundComponent} from "./page/not-found/not-found.component";
 import {UserComponent} from "./page/user/user.component";
 import {SearchComponent} from "./page/search/search.component";
 import {UploadTrackComponent} from "./page/upload-track/upload-track.component";
+import {PlaylistComponent} from "./page/playlist/playlist.component";
 
 export const routes: Routes = [
   {
@@ -24,7 +25,8 @@ export const routes: Routes = [
   },
   {
     path: "myPublications",
-    component: UserPublicationsComponent
+    component: UserPublicationsComponent,
+    canActivate: [userAuthCheckGuard]
   },
   {
     path: "user/:id",
@@ -37,7 +39,12 @@ export const routes: Routes = [
   },
   {
     path: "uploadTrack",
-    component: UploadTrackComponent
+    component: UploadTrackComponent,
+    canActivate: [userAuthCheckGuard]
+  },
+  {
+    path: "playlists/:id",
+    component: PlaylistComponent
   },
   {
     path: "**",

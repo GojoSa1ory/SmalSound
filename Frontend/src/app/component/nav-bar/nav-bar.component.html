@@ -2,73 +2,98 @@
   <h1>SmallSound</h1>
 
   <div class="navBar-items-container">
+    <div class="navBar-items">
 
-    <a routerLink="/" class="navBar-items-button">
-      <lucide-icon name="home" size="24"/>
-      Главная
-    </a>
+      <a routerLink="/" class="navBar-items-button">
+        <lucide-icon name="home" size="24"/>
+        Главная
+      </a>
 
-    <a routerLink="/search" class="navBar-items-button">
-      <lucide-icon name="search" size="24"/>
-      Поиск
-    </a>
+      <a routerLink="/search" class="navBar-items-button">
+        <lucide-icon name="search" size="24"/>
+        Поиск
+      </a>
 
-  </div>
+    </div>
 
-  <div class="navBar-items-container">
-    <a
-      routerLink="/uploadTrack"
-      class="navBar-items-button">
+    <div class="navBar-items">
+      <a
+        routerLink="/uploadTrack"
+        class="navBar-items-button">
         <lucide-icon name="download"></lucide-icon>
         Опубликовать трек
-    </a>
-
-  </div>
-
-  @if (!isAuth()) {
-    <div class="navBar-items-container">
-      <a class="navBar-items-button" routerLink="login">
-        <lucide-icon name="shield-check"></lucide-icon>
-        Войти
-      </a>
-      <a class="navBar-items-button" routerLink="register">
-        <lucide-icon name="user-plus"></lucide-icon>
-        Регистрация
-      </a>
-    </div>
-  } @else {
-    <div class="navBar-items-container">
-
-      <a class="navBar-items-button" routerLink="/user/{{user()?.id}}">
-        @if (user()?.profilePicture === "string" || user()?.profilePicture === undefined || user()?.profilePicture === null) {
-          <lucide-icon name="circle-user"></lucide-icon>
-        } @else {
-          <img [src]="user()?.profilePicture" class="navBar-items-userImg">
-        }
-        {{ user()?.name }}
       </a>
 
-      <a routerLink="favorites" class="navBar-items-button">
-        <lucide-icon name="heart"></lucide-icon>
-        Любимое
-      </a>
-
-      <a routerLink="artists" class="navBar-items-button">
-        <lucide-icon name="mic-vocal"></lucide-icon>
-        Артисты
-      </a>
-
-      <a routerLink="myPublications" class="navBar-items-button">
-        <lucide-icon name="book-check"></lucide-icon>
-        Мои публикации
-      </a>
-
-      <button (click)="handleLogOut()" class="navBar-items-button">
-        <lucide-icon name="log-out"></lucide-icon>
-        Выйти
+      <button
+        (click)="createPlaylist()"
+        class="navBar-items-button">
+        <lucide-icon name="square-plus"></lucide-icon>
+        Создать плейлист
       </button>
 
     </div>
-  }
+
+    @if (!isAuth()) {
+      <div class="navBar-items">
+        <a class="navBar-items-button" routerLink="login">
+          <lucide-icon name="shield-check"></lucide-icon>
+          Войти
+        </a>
+        <a class="navBar-items-button" routerLink="register">
+          <lucide-icon name="user-plus"></lucide-icon>
+          Регистрация
+        </a>
+      </div>
+    } @else {
+      <div class="navBar-items">
+
+        <a class="navBar-items-button" routerLink="/user/{{user()?.id}}">
+          @if (user()?.profilePicture === "string" || user()?.profilePicture === undefined || user()?.profilePicture === null) {
+            <lucide-icon name="circle-user"></lucide-icon>
+          } @else {
+            <img [src]="user()?.profilePicture" class="navBar-items-userImg">
+          }
+          {{ user()?.name }}
+        </a>
+
+        <a routerLink="favorites" class="navBar-items-button">
+          <lucide-icon name="heart"></lucide-icon>
+          Любимое
+        </a>
+
+        <a routerLink="artists" class="navBar-items-button">
+          <lucide-icon name="mic-vocal"></lucide-icon>
+          Артисты
+        </a>
+
+        <a routerLink="myPublications" class="navBar-items-button">
+          <lucide-icon name="book-check"></lucide-icon>
+          Мои публикации
+        </a>
+
+        <button (click)="handleLogOut()" class="navBar-items-button">
+          <lucide-icon name="log-out"></lucide-icon>
+          Выйти
+        </button>
+
+      </div>
+    }
+
+    <div class="navBar-items">
+
+      <h1>Мои плейлисты</h1>
+
+      @for (playlist of playlists(); track $index) {
+        <a
+          routerLink="/playlists/{{playlist.id}}"
+          class="navBar-items-button">
+          {{playlist.name}}
+        </a>
+      } @empty {
+        <p>Нет плейлистов</p>
+      }
+    </div>
+
+  </div>
 
 </div>

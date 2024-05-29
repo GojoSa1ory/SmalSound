@@ -40,12 +40,21 @@ public class PlaylistController: ControllerBase
         
         return response;
     }
+    
+    [HttpGet("all/user/{userId}")]
+    public async Task<ActionResult<ServiceResponse<List<GetPlaylistDto>>>> GetUserPlaylists(int userId)
+    {
+        var response = await _playlistService.GetUserPlaylists(userId);
+        
+        if (!response.Success) return BadRequest(response);
+        
+        return response;
+    }
 
     [HttpGet("one/{playlistId}")]
     public async Task<ActionResult<ServiceResponse<GetPlaylistDto>>> GetPlaylist(int playlistId)
     {
-        int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
-        var response = await _playlistService.GetPlaylist(playlistId, userId);
+        var response = await _playlistService.GetPlaylist(playlistId);
         
         if (!response.Success) return BadRequest(response);
         

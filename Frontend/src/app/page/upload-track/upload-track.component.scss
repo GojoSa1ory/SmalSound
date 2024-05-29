@@ -5,17 +5,24 @@
   padding: 20px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
   background-color: #1e1a3b;
   border-radius: 15px;
 }
 
-.uploadTrack-track-info {
+.uploadTrack-track {
   display: flex;
-  width: 40%;
+  margin: 20px 0;
   flex-direction: column;
   justify-content: center;
+  align-items: start;
+  width: 100%;
+}
+
+.uploadTrack-track-info {
+  display: flex;
+  justify-content: space-between;
   align-items: center;
   padding: 10px;
   background-color: #18152d;
@@ -30,14 +37,14 @@
 .file-section {
   display: flex;
   width: 100%;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 }
 
 .input-file {
-  position: relative;
-  display: inline-block;
+  margin: 0 10px;
 }
+
 .input-file span {
   display: flex;
   justify-content: center;
@@ -50,11 +57,11 @@
   vertical-align: middle;
   color: rgb(255 255 255);
   text-align: center;
-  border-radius: 4px;
   background: none;
   line-height: 22px;
   height: 90px;
   width: 90px;
+  border-radius: 15px;
   border-style: dashed;
 
   box-sizing: border-box;
@@ -83,7 +90,26 @@
   background-color: #eb055a;
 }
 
+.track-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 10px;
+  width: 100%;
+}
+
 .submit-button {
+  border-radius: 15px;
+  border: none;
+  height: 100%;
+  padding: 10px;
+  color: white;
+  background: none;
+  transition-duration: 200ms;
+}
+
+.select-genre {
   border-radius: 15px;
   border: none;
   padding: 10px;
@@ -94,5 +120,8 @@
 }
 
 .submit-button:hover {
+  background-color: #eb055a;
+}
+.select-genre:hover {
   background-color: #eb055a;
 }

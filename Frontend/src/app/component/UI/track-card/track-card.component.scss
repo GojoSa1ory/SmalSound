@@ -6,13 +6,14 @@
   border-radius: 15px;
   background-color: #18152d;
   margin: 10px 0;
-  //width: 100%;
-  //box-sizing: border-box;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .trackCard img {
   border-radius: 15px;
   width: 60px;
+  height: 60px;
 }
 
 .trackInfo {
@@ -34,7 +35,7 @@
   width: 20px;
 }
 
-.play_btn {
+.trackCard_btn {
   border-radius: 15px;
   text-align: center;
   border: none;
@@ -43,6 +44,12 @@
   transition-duration: 175ms;
 }
 
-.play_btn:hover {
+.trackCard-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.trackCard_btn:hover {
   color: #eb055a;
 }

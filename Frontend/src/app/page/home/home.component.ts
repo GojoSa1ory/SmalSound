@@ -23,7 +23,9 @@ export class HomeComponent implements OnInit{
     }
     ngOnInit(): void {
         this.trackService.getAllTracks().subscribe({
-          next: value => this.trackService.tracks.set(value.data!),
+          next: value => {
+            this.trackService.tracks.set(value.data!)
+          },
           error: err => console.log(err)
         })
     }

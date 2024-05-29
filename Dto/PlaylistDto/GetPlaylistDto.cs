@@ -9,4 +9,6 @@ public class GetPlaylistDto
     public string Image { get; set; }
     public List<GetTrackDto>? Tracks { get; set; }
     public GetUserDto User { get; set; }
+    public DateTime createdAt { get; set; }
+    public DateTime updatedAt { get; set; }
 }

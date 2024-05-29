@@ -27,7 +27,7 @@ public class PlaylistService: IPlaylistService
         try
         {
             var user = _context.Users.FirstOrDefault(u => u.Id == userId);
-            var check = _context.Playlists.FirstOrDefault(p => p.User.Id == userId && p.Name == newPlaylist.Name);
+            var check = _context.Playlists.FirstOrDefault(p => p.User.Id == userId);
 
             if (user is null) throw new Exception("User not found");
             if (check is not null) throw new Exception("Playlist with the same name is already exist");
@@ -69,8 +69,32 @@ public class PlaylistService: IPlaylistService
         
         return response;
     }
+    
+    public async Task<ServiceResponse<List<GetPlaylistDto>>> GetUserPlaylists(int userId)
+    {
+        ServiceResponse<List<GetPlaylistDto>> response = new();
 
-    public async Task<ServiceResponse<GetPlaylistDto>> GetPlaylist(int id, int userId)
+        try
+        {
+            var playlist = _context.Playlists
+                .Include(p => p.User)
+                .Include(p => p.Tracks)
+                .Where(p => p.User.Id == userId);
+
+            if (playlist.IsNullOrEmpty()) throw new Exception("Your don't have any playlists");
+
+            response.Data = playlist.Select(p => _mapper.Map<GetPlaylistDto>(p)).ToList();
+        }
+        catch (Exception e)
+        {
+            response.Message = e.Message;
+            response.Success = false;
+        }
+        
+        return response;
+    }
+
+    public async Task<ServiceResponse<GetPlaylistDto>> GetPlaylist(int id)
     {
         ServiceResponse<GetPlaylistDto> response = new();
 
@@ -78,7 +102,8 @@ public class PlaylistService: IPlaylistService
         {
             var playlist = _context.Playlists
                 .Include(p => p.Tracks)
-                .FirstOrDefault(p => p.Id == id && p.User.Id == userId);
+                .Include(p => p.User)
+                .FirstOrDefault(p => p.Id == id);
 
             if (playlist is null) throw new Exception("Playlist not found");
 

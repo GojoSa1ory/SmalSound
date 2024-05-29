@@ -5,6 +5,7 @@ import { ServerResponseModel } from "../models/serverResponse.model";
 import { GenreModel, SetTrackModel, TrackModel } from "../models/track.model";
 import { Observable, Subscription } from "rxjs";
 import { CloudOffIcon } from "lucide-angular";
+import {NotificationService} from "./notification.service";
 
 @Injectable({
     providedIn: "root",
@@ -16,7 +17,10 @@ export class TrackService {
     userTracks: WritableSignal<TrackModel[] | []> = signal([]);
     genres: WritableSignal<GenreModel[] | []> = signal([]);
 
-    constructor(private http: HttpClient) {}
+    constructor(
+      private http: HttpClient,
+      private notificationService: NotificationService
+    ) {}
 
     getAllTracks(): Observable<ServerResponseModel<TrackModel[]>> {
         return this.http.get<ServerResponseModel<TrackModel[]>>(
@@ -45,7 +49,14 @@ export class TrackService {
                 responseType: "json",
             })
             .subscribe({
-                error: (err) => console.log(err),
+                next: () => {
+                  this.notificationService.showNotification(false, "", "Трек загружен успешно")
+                  setTimeout(() => {this.notificationService.closeNotification()}, 2000)
+                },
+                error: (err) => {
+                  this.notificationService.showNotification(true, "Ошибка при отправке трека")
+                  setTimeout(() => {this.notificationService.closeNotification()}, 2000)
+                },
             });
     }
 

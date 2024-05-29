@@ -1,0 +1,15 @@
+.notification {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  width: 20%;
+  margin: 0 20px;
+  display: flex;
+  justify-content: center;
+  align-items: end;
+  padding: 10px;
+  border-radius: 15px;
+  background-color: #18152d;
+  border-color: #eb055a;
+  border-style: solid;
+}

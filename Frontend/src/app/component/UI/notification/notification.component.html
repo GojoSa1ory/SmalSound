@@ -1,0 +1,9 @@
+@if (isOpen()) {
+  <div class="notification">
+    @if (isError()){
+      <p>{{errorMessage()}}</p>
+    } @else {
+      <p>{{message()}}</p>
+    }
+  </div>
+}

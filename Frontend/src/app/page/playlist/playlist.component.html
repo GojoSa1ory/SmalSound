@@ -1,0 +1,23 @@
+<div class="playlist-container">
+
+  <div class="playlist-header">
+    @if (playlist?.image){
+      <img class="playlist-image" [src]="playlist!.image" width="200px">
+    } @else {
+      <img class="playlist-image" src="./assets/da.jpg" width="300px">
+    }
+    <div class="playlist-info">
+      <h1 class="playlist-title">{{playlist?.name}}</h1>
+      <h2 class="playlist-subtitle">Создатель: {{playlist?.user!.name}}</h2>
+    </div>
+  </div>
+
+  <div class="playlist-body">
+    @for (track of playlist?.tracks; track $index) {
+      <app-track-card [track]="track"/>
+    } @empty {
+      <p>Треков пока нет</p>
+    }
+  </div>
+
+</div>
