@@ -14,7 +14,7 @@
 
   <div class="playlist-body">
     @for (track of playlist?.tracks; track $index) {
-      <app-track-card [track]="track"/>
+      <app-track-card [isVerifided]="checkUser()" [page]="'playlist'" [playlistId]="playlist!.id" [track]="track"/>
     } @empty {
       <p>Треков пока нет</p>
     }

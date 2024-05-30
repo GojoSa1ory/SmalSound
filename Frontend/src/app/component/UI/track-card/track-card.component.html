@@ -11,17 +11,40 @@
 
   <div class="trackCard-buttons">
 
-    <button class="trackCard_btn">
-      <lucide-icon name="ellipsis"></lucide-icon>
-    </button>
+    @if (page === "none") {
+      <button class="trackCard_btn" (click)="openModal()">
+        <lucide-icon name="ellipsis"></lucide-icon>
+      </button>
 
-    <button class="trackCard_btn">
-      <lucide-icon name="heart"></lucide-icon>
-    </button>
+      <button (click)="addTrackToFavorite()" class="trackCard_btn">
+        <lucide-icon name="heart"></lucide-icon>
+      </button>
 
-    <button class="trackCard_btn" (click)="handlePlay()">
-      <lucide-icon name="{{isPlaying() ? 'pause' : 'play'}}"/>
-    </button>
+      <button class="trackCard_btn" (click)="handlePlay()">
+        <lucide-icon name="{{isPlaying() ? 'pause' : 'play'}}"/>
+      </button>
+    } @else {
+
+      <button class="trackCard_btn" (click)="openModal()">
+        <lucide-icon name="ellipsis"></lucide-icon>
+      </button>
+
+      @if (page === "userPublication" || page === "favorite" || page==="playlist" &&  isVerifided ) {
+        <button class="trackCard_btn" (click)="removeFromPlaylist()">
+          <lucide-icon name="x"/>
+        </button>
+      }
+
+<!--      @if (isVerifided && page==="playlist") {-->
+<!--        <button class="trackCard_btn" (click)="removeFromPlaylist()">-->
+<!--          <lucide-icon name="x"/>-->
+<!--        </button>-->
+<!--      }-->
+
+      <button class="trackCard_btn" (click)="handlePlay()">
+        <lucide-icon name="{{isPlaying() ? 'pause' : 'play'}}"/>
+      </button>
+    }
 
   </div>
 

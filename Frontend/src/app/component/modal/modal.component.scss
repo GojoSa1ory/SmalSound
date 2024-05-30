@@ -7,7 +7,9 @@
   right: 0;
   bottom: 0;
   top: 0;
-  margin: 50px 100px;
+  margin: 100px auto;
+  max-width: max-content;
+  min-width: 400px;
   display: flex;
   flex-direction: column;
   justify-content: start;

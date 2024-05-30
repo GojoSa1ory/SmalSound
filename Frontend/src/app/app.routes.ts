@@ -9,6 +9,7 @@ import {UserComponent} from "./page/user/user.component";
 import {SearchComponent} from "./page/search/search.component";
 import {UploadTrackComponent} from "./page/upload-track/upload-track.component";
 import {PlaylistComponent} from "./page/playlist/playlist.component";
+import {FavoriteComponent} from "./page/favorite/favorite.component";
 
 export const routes: Routes = [
   {
@@ -45,6 +46,11 @@ export const routes: Routes = [
   {
     path: "playlists/:id",
     component: PlaylistComponent
+  },
+  {
+    path: "favorites",
+    component: FavoriteComponent,
+    canActivate: [userAuthCheckGuard]
   },
   {
     path: "**",

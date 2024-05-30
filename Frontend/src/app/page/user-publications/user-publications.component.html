@@ -1,11 +1,11 @@
 <div class="userPublications-container">
 
-  <h1>Your publications</h1>
+  <h1>Твои публикации</h1>
 
-  <button class="addTrack_btn">Add track</button>
+<!--  <button class="addTrack_btn">Редактировать</button>-->
 
   @for (track of tracks(); track $index) {
-    <app-track-card [track]="track"/>
+    <app-track-card [page]="'userPublication'" [track]="track"/>
   }
 
 </div>

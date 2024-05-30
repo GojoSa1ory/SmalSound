@@ -102,6 +102,9 @@ public class PlaylistService: IPlaylistService
         {
             var playlist = _context.Playlists
                 .Include(p => p.Tracks)
+                .ThenInclude(t => t.User)
+                .Include(p => p.Tracks)
+                .ThenInclude(t => t.Genre)
                 .Include(p => p.User)
                 .FirstOrDefault(p => p.Id == id);
 
@@ -124,8 +127,13 @@ public class PlaylistService: IPlaylistService
 
         try
         {
-            var playlist = _context.Playlists.FirstOrDefault(p => p.Id == id && p.User.Id == userId);
-            var track = _context.Tracks.FirstOrDefault(t => t.Id == trackId);
+            var playlist = _context.Playlists
+                .Include(p => p.User)
+                .FirstOrDefault(p => p.Id == id && p.User.Id == userId);
+            var track = _context.Tracks
+                .Include(t => t.User)
+                .Include(t => t.Genre)
+                .FirstOrDefault(t => t.Id == trackId);
             
             if (playlist is null) throw new Exception("Playlist not found");
             if (track is null) throw new Exception("Track not found");
@@ -151,7 +159,10 @@ public class PlaylistService: IPlaylistService
 
         try
         {
-            var playlist = _context.Playlists.FirstOrDefault(p => p.Id == id && p.User.Id == userId);
+            var playlist = _context.Playlists
+                .Include(p => p.User)
+                .Include(p => p.Tracks)
+                .FirstOrDefault(p => p.Id == id && p.User.Id == userId);
             var track = _context.Tracks.FirstOrDefault(t => t.Id == trackId);
             
             if (playlist is null) throw new Exception("Playlist not found");

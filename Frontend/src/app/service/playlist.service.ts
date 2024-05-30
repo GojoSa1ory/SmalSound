@@ -12,6 +12,7 @@ export class PlaylistService {
   private apiUrl = environment.apiUrl
   private playlists: WritableSignal<PlaylistModel[] | []> = signal([])
   private playlist: WritableSignal<PlaylistModel | null> = signal(null)
+  trackId: WritableSignal<number> = signal(0)
 
 
   get playlists$ () {
@@ -26,6 +27,11 @@ export class PlaylistService {
   createPlaylist () {
     const headers = this.createAuthHeaders()
     return this.http.post(`${this.apiUrl}/playlist/create`, {name: "Мой плейлист"}, {headers: headers})
+  }
+
+  addTrackToPlayList (playlistId: number, trackId: number) {
+    const headers = this.createAuthHeaders()
+    return this.http.post(`${this.apiUrl}/playlist/addTrack/${playlistId}/${trackId}`, null, {headers: headers})
   }
 
   getPlaylists () {
@@ -49,7 +55,8 @@ export class PlaylistService {
   }
 
   deleteTrackFormPlaylist (playlistId: number, trackId: number) {
-    return this.http.delete(`${this.apiUrl}/playlist/removeTrack/${playlistId}/${trackId}`)
+    const headers = this.createAuthHeaders()
+    return this.http.delete(`${this.apiUrl}/playlist/removeTrack/${playlistId}/${trackId}`, {headers: headers})
   }
 
   private createAuthHeaders() {

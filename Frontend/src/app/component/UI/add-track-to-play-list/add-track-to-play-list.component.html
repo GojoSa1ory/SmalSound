@@ -1,0 +1,13 @@
+<div class="addToPlaylist-layout">
+  @for (playlist of playlists(); track $index) {
+    <div class="playlist-card">
+      @if (playlist.image) {
+        <img class="addToPlaylist-img" [src]="playlist.image">
+      } @else {
+        <img class="addToPlaylist-img" src="assets/da.jpg">
+      }
+      <p>{{playlist.name}}</p>
+      <button class="addToPlaylist-btn" (click)="addToPlaylist(playlist.id)">Добавить</button>
+    </div>
+  }
+</div>

@@ -1,0 +1,27 @@
+.playlist-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #18152d;
+  padding: 10px;
+  border-radius: 15px;
+}
+
+.addToPlaylist-img {
+  width: 60px;
+  height: 60px;
+  border-radius: 15px;
+}
+
+.addToPlaylist-btn {
+  border: none;
+  color: white;
+  border-radius: 15px;
+  padding: 15px;
+  background-color: #1e1a3b;
+  transition-duration: 200ms;
+}
+
+.addToPlaylist-btn:hover {
+  background-color: #eb055a;
+}

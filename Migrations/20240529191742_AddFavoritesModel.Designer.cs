@@ -4,6 +4,7 @@ using KPCourseWork.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KPCourseWork.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240529191742_AddFavoritesModel")]
+    partial class AddFavoritesModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -45,12 +48,7 @@ namespace KPCourseWork.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Favorite");
                 });
@@ -173,6 +171,9 @@ namespace KPCourseWork.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<int?>("FavoriteId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -194,6 +195,8 @@ namespace KPCourseWork.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("FavoriteId");
 
                     b.HasIndex("RoleId");
 
@@ -230,15 +233,6 @@ namespace KPCourseWork.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("KPCourseWork.Models.FavoriteModel", b =>
-                {
-                    b.HasOne("KPCourseWork.Models.UserModel", "User")
-                        .WithMany("Favorite")
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("KPCourseWork.Models.PlaylistModel", b =>
                 {
                     b.HasOne("KPCourseWork.Models.UserModel", "User")
@@ -271,11 +265,17 @@ namespace KPCourseWork.Migrations
 
             modelBuilder.Entity("KPCourseWork.Models.UserModel", b =>
                 {
+                    b.HasOne("KPCourseWork.Models.FavoriteModel", "Favorite")
+                        .WithMany("User")
+                        .HasForeignKey("FavoriteId");
+
                     b.HasOne("KPCourseWork.Models.RoleModel", "Role")
                         .WithMany("User")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Favorite");
 
                     b.Navigation("Role");
                 });
@@ -295,6 +295,11 @@ namespace KPCourseWork.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("KPCourseWork.Models.FavoriteModel", b =>
+                {
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("KPCourseWork.Models.GenreModel", b =>
                 {
                     b.Navigation("Tracks");
@@ -307,8 +312,6 @@ namespace KPCourseWork.Migrations
 
             modelBuilder.Entity("KPCourseWork.Models.UserModel", b =>
                 {
-                    b.Navigation("Favorite");
-
                     b.Navigation("Playlist");
 
                     b.Navigation("Tracks");

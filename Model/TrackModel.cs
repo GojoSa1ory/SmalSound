@@ -9,6 +9,7 @@ public class TrackModel
     public UserModel User { get; set; }
     public GenreModel Genre {get; set;}
     public List<PlaylistModel>? Playlist { get; set; }
+    public List<FavoriteModel>? Favorite { get; set; }
     public DateTime createdAt {get; set;}
     public DateTime updatedAt {get; set;}
 }

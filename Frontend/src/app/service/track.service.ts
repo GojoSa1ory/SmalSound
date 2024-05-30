@@ -60,6 +60,15 @@ export class TrackService {
             });
     }
 
+    deleteTrack (trackId: number) {
+      const headers = new HttpHeaders().set(
+        "Authorization",
+        `Bearer ${localStorage.getItem("token")}`,
+      );
+
+      return this.http.delete(`${this.apiUrl}/track/delete/${trackId}`, {headers: headers})
+    }
+
     getGenres(): Subscription {
         return this.http
             .get<

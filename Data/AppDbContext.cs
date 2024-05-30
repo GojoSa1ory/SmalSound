@@ -10,4 +10,6 @@ public class AppDbContext : DbContext
     public DbSet<TrackModel> Tracks { get; set; }
     public DbSet<PlaylistModel> Playlists { get; set; }
     public DbSet<GenreModel> Genre { get; set; }
+    public DbSet<FavoriteModel> Favorite { get; set; }
+    
 }

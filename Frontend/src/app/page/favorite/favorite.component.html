@@ -1,0 +1,22 @@
+<div class="favorite-layout">
+
+  <div class="favorite-header">
+    <img src="./assets/fav.png" class="favorite-img">
+    <div class="favorite-info">
+      <h1>Избранное</h1>
+      <h2>{{ user()?.name }}</h2>
+    </div>
+  </div>
+
+  <div class="favorite-body">
+    @if (favorite()) {
+      @for (fav of favorite()!.tracks; track $index) {
+        <app-track-card [page]="'favorite'" [track]="fav"/>
+      }
+    } @else {
+      <h3>Нет треков</h3>
+    }
+  </div>
+
+
+</div>

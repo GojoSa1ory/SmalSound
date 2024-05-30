@@ -11,6 +11,7 @@ public class UserModel {
     public RoleModel Role { get; set; }
     public List<TrackModel> Tracks {get; set; }
     public List<PlaylistModel>? Playlist { get; set; }
+    public List<FavoriteModel>? Favorite { get; set; }
     public DateTime createdAt {get; set;}
     public DateTime updatedAt {get; set;}
 }

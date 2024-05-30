@@ -4,6 +4,7 @@ import {PlaylistService} from "../../service/playlist.service";
 import {PlaylistModel} from "../../models/playlist.model";
 import {TrackCardComponent} from "../../component/UI/track-card/track-card.component";
 import {AudioPlayerService} from "../../service/audio-player.service";
+import {AuthService} from "../../service/auth.service";
 
 @Component({
   selector: 'app-playlist',
@@ -21,7 +22,8 @@ export class PlaylistComponent implements OnInit{
   constructor(
     private route: ActivatedRoute,
     private playlistService: PlaylistService,
-    private playerSerice: AudioPlayerService
+    private playerSerice: AudioPlayerService,
+    private authService: AuthService
   ) {}
     ngOnInit(): void {
       this.route.params.subscribe((params: Params) => {
@@ -34,5 +36,7 @@ export class PlaylistComponent implements OnInit{
         })
       });
     }
-
+  checkUser () {
+    return this.playlist?.user.id === this.authService.user$()?.id
+  }
 }
