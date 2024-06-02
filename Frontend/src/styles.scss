@@ -56,3 +56,65 @@ body {
   padding: 5px;
   background-color: #201c43;
 }
+
+.custom_button {
+  border: none;
+  padding: 10px;
+  border-radius: 15px;
+  color: white;
+  transition-duration: 200ms;
+  background-color: #18152d;
+}
+
+.custom_button:hover {
+  background-color: #eb055a;
+}
+
+.input-file {
+  margin: 0 10px;
+}
+
+.input-file span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  cursor: pointer;
+  outline: none;
+  text-decoration: none;
+  font-size: 14px;
+  vertical-align: middle;
+  color: rgb(255 255 255);
+  text-align: center;
+  background: none;
+  line-height: 22px;
+  height: 90px;
+  width: 90px;
+  border-radius: 15px;
+  border-style: dashed;
+
+  box-sizing: border-box;
+  margin: 0;
+  transition: background-color 0.2s;
+}
+.input-file input[type=file] {
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+  display: block;
+  width: 0;
+  height: 0;
+}
+
+/* Focus */
+.input-file input[type=file]:focus + span {
+  box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+}
+
+/* Hover/active */
+.input-file:hover span {
+  background-color: #eb055a;
+}
+.input-file:active span {
+  background-color: #eb055a;
+}

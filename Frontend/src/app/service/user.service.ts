@@ -36,6 +36,19 @@ export class UserService {
     })
   }
 
+  updateUserInfo (user: any) {
+    return this.http.patch(`${this.apiUrl}/user/update`, user, {headers: this.createAuthHeaders()}).subscribe({
+      next: value => {
+        this.notificationService.showNotification(false, "", "Данные обновлены")
+        setTimeout(() => this.notificationService.closeNotification(), 2000 )
+      },
+      error: err => {
+        this.notificationService.showNotification(true, "Ошибка", "")
+        setTimeout(() => this.notificationService.closeNotification(), 2000 )
+      }
+    })
+  }
+
   private createAuthHeaders (): HttpHeaders {
     return new HttpHeaders().set('Authorization', `Bearer ${localStorage.getItem("token")}`)
   }

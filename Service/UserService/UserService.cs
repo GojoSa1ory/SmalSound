@@ -1,5 +1,6 @@
 using AutoMapper;
 using KPCourseWork.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace KPCourseWork.Service;
 
@@ -22,7 +23,8 @@ public class UserService: IUserService
 
         try
         {
-            var user = _context.Users.FirstOrDefault(u => u.Id == userId);
+            var user = _context.Users
+                .FirstOrDefault(u => u.Id == userId);
 
             if (user is null) throw new Exception("User not found");
 
@@ -47,13 +49,21 @@ public class UserService: IUserService
 
             if (user is null) throw new Exception("User not found");
             
-            user.Email = newUser.Email is not null ? newUser.Email : user.Email;
-            user.Name = newUser.Name is not null ? newUser.Name : user.Name;
+            user.Email = newUser.Email is null ? user.Email : newUser.Email;
+            user.Name = newUser.Name is null || newUser.Name == "null" ? user.Name : newUser.Name;
+
+            if (newUser.Password.Length >= 8 &&  !BCrypt.Net.BCrypt.Verify(newUser.Password, user.Password))
+            {
+                user.Password = BCrypt.Net.BCrypt.HashPassword(newUser.Password);
+            }
             
             // if (!BCrypt.Net.BCrypt.Verify(newUser.Password, user.Password))
             //     user.Password = newUser.Password;
 
-            user.ProfilePicture = await _fileUploadService.UploadFile("UserImage", newUser.ProfilePicture);
+            if (newUser.ProfilePicture is not null)
+            {
+                user.ProfilePicture = await _fileUploadService.UploadFile("UserImage", newUser.ProfilePicture);
+            }
             
             await _context.SaveChangesAsync();
             

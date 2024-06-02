@@ -22,5 +22,11 @@ public class MapperCfg : Profile
         
         CreateMap<GenreModel, GetGenreDto>().ReverseMap();
         CreateMap<FavoriteModel, GetFavoriteDto>().ReverseMap();
+
+        CreateMap<SubscriptionModel, GetSubscriptionDto>().ReverseMap();
+        
+        // CreateMap<SubscriptionModel, GetSubscriptionDto>()
+        //     .ForMember(dest => dest.Subscriber, opt => opt.MapFrom(src => src.Subscriber))
+        //     .ForMember(dest => dest.SubscribedTo, opt => opt.MapFrom(src => src.SubscribedTo));
     }
 }

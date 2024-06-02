@@ -60,13 +60,11 @@ export class UploadTrackComponent implements OnInit{
   }
 
   uploadTrack (event: any) {
-    console.log(this.track)
     const request = new FormData()
     request.append("Name", this.track.name)
     request.append("TrackImage", this.selectedImage)
     request.append("Track", this.selectedTrack)
     request.append("GenreId", String(this.track.genreId))
-    console.log(request)
     event.preventDefault()
     this.trackService.uploadTrack(request)
   }

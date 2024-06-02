@@ -28,12 +28,9 @@ export class TrackService {
         );
     }
 
-    getAllUserTracks(): Observable<ServerResponseModel<TrackModel[]>> {
-        const headers = this.createAuthHeaders();
-
+    getAllUserTracks(id: number): Observable<ServerResponseModel<TrackModel[]>> {
         return this.http.get<ServerResponseModel<TrackModel[]>>(
-            `${this.apiUrl}/track/user/all`,
-            { headers: headers },
+            `${this.apiUrl}/track/user/all/${id}`
         );
     }
 

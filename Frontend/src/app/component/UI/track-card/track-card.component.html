@@ -35,12 +35,6 @@
         </button>
       }
 
-<!--      @if (isVerifided && page==="playlist") {-->
-<!--        <button class="trackCard_btn" (click)="removeFromPlaylist()">-->
-<!--          <lucide-icon name="x"/>-->
-<!--        </button>-->
-<!--      }-->
-
       <button class="trackCard_btn" (click)="handlePlay()">
         <lucide-icon name="{{isPlaying() ? 'pause' : 'play'}}"/>
       </button>

@@ -1,2 +1,38 @@
-<p>user works!</p>
-<p>{{user()?.name}}</p>
+<div class="profile-layout">
+  <div class="profile-header">
+
+    <div class="profile-user-info">
+      @if (user()?.profilePicture === undefined || user()?.profilePicture === "string" || user()?.profilePicture === null) {
+        <img class="profile-user-img" src="assets/da.jpg"/>
+      } @else {
+        <img class="profile-user-img" [src]="user()?.profilePicture"/>
+      }
+
+      <p>{{ user()?.name }}</p>
+    </div>
+
+    @if (verifeUser()) {
+      <button class="custom_button" (click)="openSettingModal()">Настройки</button>
+    } @else {
+      <button class="custom_button" (click)="subscribeToUser()">Подписаться</button>
+    }
+
+  </div>
+
+
+  <div class="profile-body">
+
+    @for (track of tracks(); track $index) {
+      <app-track-card [track]="track"/>
+    }
+
+    <div class="profile-user-playlists">
+      @for (playlist of playlists(); track $index) {
+        <app-playlist-card [playlist]="playlist"/>
+      }
+    </div>
+
+  </div>
+
+
+</div>

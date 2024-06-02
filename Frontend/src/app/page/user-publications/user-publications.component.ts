@@ -3,6 +3,7 @@ import {TrackModel} from "../../models/track.model";
 import {TrackService} from "../../service/track.service";
 import {TrackCardComponent} from "../../component/UI/track-card/track-card.component";
 import {AudioPlayerService} from "../../service/audio-player.service";
+import {AuthService} from "../../service/auth.service";
 
 @Component({
   selector: 'app-user-publications',
@@ -19,12 +20,13 @@ export class UserPublicationsComponent implements OnInit{
 
   constructor(
     private trackService: TrackService,
-    private audioPlayerService: AudioPlayerService
+    private audioPlayerService: AudioPlayerService,
+    private authService:AuthService
   ) {
     this.tracks = this.trackService.userTracks
   }
   ngOnInit(): void {
-    this.trackService.getAllUserTracks().subscribe({
+    this.trackService.getAllUserTracks(this.authService.user$()!.id).subscribe({
       next: value => {
         this.trackService.userTracks.set(value.data!)
         this.audioPlayerService.tracks.set(value.data!)

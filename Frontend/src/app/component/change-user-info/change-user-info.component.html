@@ -1,0 +1,19 @@
+<div class="changeUserInfo-layout">
+
+  @if (imageUrl) {
+    <img [src]="imageUrl" class="changeUserInfo-img"/>
+  } @else {
+    <label class="input-file">
+      <input (input)="setUserImage($event)" type="file"/>
+      <span>Загрузите обложку</span>
+    </label>
+  }
+
+  <div>
+    <input [value]="name" (input)="setUserName($event)" placeholder="Введите новое имя" type="text" class="custom-input">
+    <input [value]="password" (input)="setPassword($event)" placeholder="Введите новый пароль" type="password" class="custom-input">
+  </div>
+
+  <button class="changeUserInfo-btn" (click)="updateUserInfo()">Сохранить</button>
+
+</div>

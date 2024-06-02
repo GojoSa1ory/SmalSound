@@ -7,6 +7,7 @@ using KPCourseWork.Data;
 using KPCourseWork.Service;
 using KPCourseWork.Service.FavoriteService;
 using KPCourseWork.Service.PlaylistService;
+using KPCourseWork.Service.SubscriptionService;
 using KPCourseWork.Service.TrackService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -83,6 +84,7 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IPlaylistService, PlaylistService>();
 builder.Services.AddScoped<ISearchService, SearchService>();
 builder.Services.AddScoped<IFavoriteService, FavoriteService>();
+builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
 
 var app = builder.Build();
 app.UseCors(b => b.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());

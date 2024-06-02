@@ -1,0 +1,9 @@
+<a routerLink="/playlists/{{playlist.id}}" class="palylist-card">
+  @if (playlist.image === undefined || playlist.image === "string" || playlist.image === null) {
+    <img class="playlist-img" src="assets/da.jpg"/>
+  } @else {
+    <img class="playlist-img" [src]="playlist.image"/>
+  }
+
+  <h1 class="playlist-title">{{playlist.name}}</h1>
+</a>

@@ -1,0 +1,44 @@
+.profile-layout {
+  border-radius: 15px;
+  background-color: #201c43;
+  height: fit-content;
+}
+
+.profile-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #1e1a3b;
+  border-radius: 15px;
+  padding: 20px;
+}
+
+.profile-user-info {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+
+.profile-user-info p {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 0 13px;
+}
+
+.profile-user-img {
+  border-radius: 500%;
+  width: 100px;
+  height: 100px;
+}
+
+.profile-body {
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+.profile-user-playlists {
+  display: grid;
+  grid-template-columns: 30% 30% 30%;
+  gap: 20px;
+}

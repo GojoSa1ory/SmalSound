@@ -14,4 +14,7 @@ public class UserModel {
     public List<FavoriteModel>? Favorite { get; set; }
     public DateTime createdAt {get; set;}
     public DateTime updatedAt {get; set;}
+    
+    public List<SubscriptionModel> Subscriptions { get; set; }
+    public List<SubscriptionModel> Subscribers { get; set; }
 }

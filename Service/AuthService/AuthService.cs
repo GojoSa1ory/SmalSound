@@ -98,7 +98,8 @@ public class AuthService : IAuthService
 
         try
         {
-            var user = _context.Users.FirstOrDefault(u => u.Id == userId);
+            var user = _context.Users
+                .FirstOrDefault(u => u.Id == userId);
 
             if (user is null) throw new Exception("User not found");
 

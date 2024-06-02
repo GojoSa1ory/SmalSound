@@ -44,10 +44,9 @@ public class TrackController: ControllerBase
         return Ok(response);
     }
     
-    [HttpGet("user/all")]
-    public async Task<ActionResult<ServiceResponse<List<GetTrackDto>>>> GetAllUserTracks()
+    [HttpGet("user/all/{userId}")]
+    public async Task<ActionResult<ServiceResponse<List<GetTrackDto>>>> GetAllUserTracks(int userId)
     {
-        int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
         
         var response = await _service.GetAllUserTracks(userId);
 
