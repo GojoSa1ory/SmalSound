@@ -8,7 +8,6 @@ using Microsoft.EntityFrameworkCore;
 namespace KPCourseWork.Controllers;
 
 [ApiController]
-[Authorize]
 [Route("[controller]")]
 public class SubscriptionController: ControllerBase
 {
@@ -19,7 +18,8 @@ public class SubscriptionController: ControllerBase
         _subscriptionService = service;
     }
     
-    [HttpPost("subscription/subscribe/{subscribedToId}")]
+    [HttpPost("subscribe/{subscribedToId}")]
+    [Authorize]
     public async Task<IActionResult> Subscribe(int subscribedToId)
     {
         int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value); 
@@ -28,13 +28,14 @@ public class SubscriptionController: ControllerBase
 
         if (!response.Success)
         {
-            return BadRequest(response.Message);
+            return BadRequest(response);
         }
 
-        return Ok(response.Data);
+        return Ok(response);
     }
 
-    [HttpPost("subscription/unsubscribe/{subscribedToId}")]
+    [HttpPost("unsubscribe/{subscribedToId}")]
+    [Authorize]
     public async Task<IActionResult> Unsubscribe(int subscribedToId)
     {
         
@@ -44,11 +45,38 @@ public class SubscriptionController: ControllerBase
 
         if (!response.Success)
         {
-            return BadRequest(response.Message);
+            return BadRequest(response);
         }
 
-        return Ok(response.Data);
+        return Ok(response);
     }
+
+    [HttpGet("check/{subscribedToId}")]
+    [Authorize]
+    public async Task<ActionResult<ServiceResponse<bool>>> CheckSubscription(int subscribedToId)
+    {
+        int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value); 
+        
+        var response = await _subscriptionService.CheckSubscription(userId, subscribedToId);
+
+        if (!response.Success)
+        {
+            return BadRequest(response);
+        }
+
+        return Ok(response);
+    }
+    
+    [HttpGet("listenersCount/{userId}")]
+    public async Task<ActionResult<ServiceResponse<int>>> GetSubscribersCount(int userId)
+    {
+        var response = await _subscriptionService.GetSubscribersCount(userId);
+
+        if (!response.Success) return BadRequest(response);
+
+        return response;
+    }
+        
 
     // [HttpGet("subscription/subscribers")]
     // public async Task<IActionResult> GetSubscribers()

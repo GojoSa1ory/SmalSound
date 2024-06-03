@@ -13,4 +13,5 @@ public interface IPlaylistService
     Task<ServiceResponse<GetPlaylistDto>> RemoveTrack(int id, int userId, int trackId);
     Task<ServiceResponse<GetPlaylistDto>> UpdatePlaylist(UpdatePlaylistDto newPlaylist, int id, int userId);
     Task<ServiceResponse<string>> RemovePlaylist(int id, int userId);
+    Task<ServiceResponse<List<GetPlaylistDto>>> AutoAssignTracksToPlaylistsAsync();
 }

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KPCourseWork.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240601061639_SubscriptionsModel")]
-    partial class SubscriptionsModel
+    [Migration("20240603191722_createTrackListenerCount")]
+    partial class createTrackListenerCount
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -125,13 +125,19 @@ namespace KPCourseWork.Migrations
 
             modelBuilder.Entity("KPCourseWork.Models.SubscriptionModel", b =>
                 {
-                    b.Property<int>("SubscriberId")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("SubscribedToId")
                         .HasColumnType("int");
 
-                    b.HasKey("SubscriberId", "SubscribedToId");
+                    b.Property<int>("SubscriberId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("SubscribedToId");
 
@@ -147,6 +153,9 @@ namespace KPCourseWork.Migrations
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("GenreId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ListenCount")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -271,20 +280,12 @@ namespace KPCourseWork.Migrations
             modelBuilder.Entity("KPCourseWork.Models.SubscriptionModel", b =>
                 {
                     b.HasOne("KPCourseWork.Models.UserModel", "SubscribedTo")
-                        .WithMany("Subscribers")
-                        .HasForeignKey("SubscribedToId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("KPCourseWork.Models.UserModel", "Subscriber")
                         .WithMany("Subscriptions")
-                        .HasForeignKey("SubscriberId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .HasForeignKey("SubscribedToId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("SubscribedTo");
-
-                    b.Navigation("Subscriber");
                 });
 
             modelBuilder.Entity("KPCourseWork.Models.TrackModel", b =>
@@ -347,8 +348,6 @@ namespace KPCourseWork.Migrations
                     b.Navigation("Favorite");
 
                     b.Navigation("Playlist");
-
-                    b.Navigation("Subscribers");
 
                     b.Navigation("Subscriptions");
 

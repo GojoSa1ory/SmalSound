@@ -81,6 +81,10 @@ export class TrackService {
             });
     }
 
+    updateListeningAmount(trackId: number) {
+      return this.http.get(`${this.apiUrl}/track/updateListening/${trackId}`)
+    }
+
     private createAuthHeaders() {
         return new HttpHeaders().set(
             "Authorization",

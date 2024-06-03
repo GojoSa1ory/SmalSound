@@ -87,6 +87,16 @@ public class TrackController: ControllerBase
         
         return Ok(response);
     }
+
+    [HttpGet("updateListening/{trackId}")]
+    public async Task<ActionResult<ServiceResponse<string>>> UpdateListeningCount(int trackId)
+    {
+        var response = await _service.UpdateListeningCount(trackId);
+
+        if (!response.Success) return BadRequest(response);
+        
+        return Ok(response);
+    }
     
     [Authorize]
     [HttpDelete("delete/{trackId}")]

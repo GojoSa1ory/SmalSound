@@ -27,8 +27,10 @@ export class UserComponent implements OnInit {
 
   userId!: number
   user: WritableSignal<UserModel | null> = signal(null)
-  tracks: WritableSignal<TrackModel[] | []> = signal([])
+  tracks:TrackModel[] | [] = []
   playlists: WritableSignal<PlaylistModel[] | []> = signal([])
+  isSub: boolean = false
+  listenersCount: number = 0
 
 
 
@@ -43,34 +45,24 @@ export class UserComponent implements OnInit {
     private router: Router
   ) {
     this.user = this.userSerivice.user$
-    this.tracks = this.trackService.userTracks
-    this.playlists = this.playlisService.playlists$
   }
 
   ngOnInit(): void {
-    this.setUpPage()
-  }
-
-  setUpPage () {
-    this.getUser()
-    this.getUserTracks()
-    this.getUserPlaylists()
-    this.verifeUser()
-
-  }
-
-  getUser() {
     this.route.params.subscribe((params: Params) => {
       this.userId = params['id'];
       this.userSerivice.getUserProfile(this.userId)
+      this.getListenersCount()
+      this.getUserTracks()
+      this.getUserPlaylists()
+      this.verifeUser()
+      this.checkSub()
     });
   }
-
   getUserTracks () {
     this.trackService.getAllUserTracks(this.userId).subscribe({
       next: value => {
-        this.trackService.userTracks.set(value.data!)
-        this.playerService.tracks.set(value.data!)
+        this.tracks = value.data!
+        this.playerService.tracks.set(this.tracks)
       },
       error: err => {}
     })
@@ -79,9 +71,12 @@ export class UserComponent implements OnInit {
   getUserPlaylists () {
     this.playlisService.getUserPlaylists(this.userId).subscribe({
       next: value => {
-        this.playlisService.playlists$.set(value.data!)
+        this.playlists.set(value.data!)
       },
-      error: err => {}
+      error: err => {
+        this.playlists.set([])
+        // this.playlisService.playlists$.set([])
+      }
     })
   }
 
@@ -89,12 +84,39 @@ export class UserComponent implements OnInit {
     return this.userId == this.authService.user$()?.id!
   }
 
+  checkSub () {
+    if(!this.verifeUser()) {
+      this.userSerivice.checkSub(this.userId).subscribe({
+        next: value => {
+          this.isSub = value.data!
+        },
+        error: err => {
+          this.isSub = false
+        }
+      })
+    } else {
+      return
+    }
+  }
+
+  getListenersCount () {
+    this.userSerivice.getListenersCount(this.userId).subscribe({
+      next: value => {
+        this.listenersCount = value.data!
+      }
+    })
+  }
+
   openSettingModal() {
     this.modalService.openModal(ChangeUserInfoComponent)
   }
 
   subscribeToUser() {
+    this.userSerivice.subscribeToUser(this.userId)
+  }
 
+  unsubscribeFromUser() {
+    this.userSerivice.unsubscribeFromUser(this.userId)
   }
 
 }

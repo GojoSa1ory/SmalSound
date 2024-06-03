@@ -1,6 +1,10 @@
 <div (click)="navigateToUser()" class="user-card-layout">
   <div class="user-card-image-layout">
-    <img class="user-card-image" [src]="user.profilePicture">
+    @if (user.profilePicture === undefined || user.profilePicture === "string" || user.profilePicture === null) {
+      <img class="user-card-image" src="assets/da.jpg"/>
+    } @else {
+      <img class="user-card-image" [src]="user.profilePicture"/>
+    }
   </div>
   <p>{{user.name}}</p>
 </div>

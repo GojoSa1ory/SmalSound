@@ -10,4 +10,5 @@ public class GetTrackDto
     public GetUserDto User { get; set; } 
     public DateTime createdAt {get; set;}
     public DateTime updatedAt {get; set;}
+    public int ListenCount {get; set;}
 }

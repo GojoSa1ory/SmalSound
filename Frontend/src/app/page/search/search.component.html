@@ -24,6 +24,14 @@
     </div>
   }
 
+  @if (result()?.playlists) {
+    <div class="user-search-result">
+      @for(playlist of result()?.playlists; track $index){
+        <app-playlist-card [playlist]="playlist"/>
+      }
+    </div>
+  }
+
   @if (result()?.tracks) {
     <div class="tracks-search-result">
       @for (track of result()?.tracks; track $index) {

@@ -109,6 +109,15 @@ public class PlaylistController: ControllerBase
         
         return response;
     }
-    
+
+    [HttpGet("auto")]
+    public async Task<ActionResult<ServiceResponse<List<GetPlaylistDto>>>> AutoAssignTracksToPlaylistsAsync()
+    {
+        var response = await _playlistService.AutoAssignTracksToPlaylistsAsync();
+
+        if (!response.Success) return BadRequest(response);
+        
+        return Ok(response);
+    }
     
 }

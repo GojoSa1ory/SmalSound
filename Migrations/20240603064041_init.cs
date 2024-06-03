@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
@@ -56,9 +57,11 @@ namespace KPCourseWork.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Password = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    ProfilePicture = table.Column<string>(type: "longtext", nullable: false)
+                    ProfilePicture = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    RoleId = table.Column<int>(type: "int", nullable: false)
+                    RoleId = table.Column<int>(type: "int", nullable: false),
+                    createdAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    updatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -73,6 +76,25 @@ namespace KPCourseWork.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "Favorite",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    UserId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Favorite", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Favorite_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id");
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "Playlists",
                 columns: table => new
                 {
@@ -80,9 +102,11 @@ namespace KPCourseWork.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Image = table.Column<string>(type: "longtext", nullable: false)
+                    Image = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    UserId = table.Column<int>(type: "int", nullable: false)
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    createdAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    updatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -90,6 +114,27 @@ namespace KPCourseWork.Migrations
                     table.ForeignKey(
                         name: "FK_Playlists_Users_UserId",
                         column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Subscriptions",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    SubscribedToId = table.Column<int>(type: "int", nullable: false),
+                    SubscriberId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Subscriptions", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Subscriptions_Users_SubscribedToId",
+                        column: x => x.SubscribedToId,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -109,7 +154,9 @@ namespace KPCourseWork.Migrations
                     Track = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     UserId = table.Column<int>(type: "int", nullable: false),
-                    GenreId = table.Column<int>(type: "int", nullable: false)
+                    GenreId = table.Column<int>(type: "int", nullable: false),
+                    createdAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    updatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -124,6 +171,31 @@ namespace KPCourseWork.Migrations
                         name: "FK_Tracks_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "FavoriteModelTrackModel",
+                columns: table => new
+                {
+                    FavoriteId = table.Column<int>(type: "int", nullable: false),
+                    TracksId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FavoriteModelTrackModel", x => new { x.FavoriteId, x.TracksId });
+                    table.ForeignKey(
+                        name: "FK_FavoriteModelTrackModel_Favorite_FavoriteId",
+                        column: x => x.FavoriteId,
+                        principalTable: "Favorite",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_FavoriteModelTrackModel_Tracks_TracksId",
+                        column: x => x.TracksId,
+                        principalTable: "Tracks",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
@@ -155,6 +227,16 @@ namespace KPCourseWork.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Favorite_UserId",
+                table: "Favorite",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FavoriteModelTrackModel_TracksId",
+                table: "FavoriteModelTrackModel",
+                column: "TracksId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_PlaylistModelTrackModel_TracksId",
                 table: "PlaylistModelTrackModel",
                 column: "TracksId");
@@ -163,6 +245,11 @@ namespace KPCourseWork.Migrations
                 name: "IX_Playlists_UserId",
                 table: "Playlists",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Subscriptions_SubscribedToId",
+                table: "Subscriptions",
+                column: "SubscribedToId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tracks_GenreId",
@@ -184,7 +271,16 @@ namespace KPCourseWork.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "FavoriteModelTrackModel");
+
+            migrationBuilder.DropTable(
                 name: "PlaylistModelTrackModel");
+
+            migrationBuilder.DropTable(
+                name: "Subscriptions");
+
+            migrationBuilder.DropTable(
+                name: "Favorite");
 
             migrationBuilder.DropTable(
                 name: "Playlists");

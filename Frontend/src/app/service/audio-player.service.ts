@@ -11,7 +11,7 @@ export class AudioPlayerService {
   private track: WritableSignal<TrackModel | null | undefined> = signal(null);
   tracks: WritableSignal<TrackModel[] | []> = signal([]);
   private currentTime: WritableSignal<number> = signal(0);
-  private currentVolume: WritableSignal<number> = signal(100);
+  private currentVolume: WritableSignal<number> = signal(50);
   private duration: WritableSignal<number> = signal(0);
   private isPlayingState: { [key: number]: boolean } = {};
 
@@ -87,7 +87,7 @@ export class AudioPlayerService {
       if (this.isLooping) {
         this.audio.loop = true;
         this.audio.play()
-      } if(this.isRandom){
+      } else if(this.isRandom){
         this.randomTrack()
       } else {
         this.audio.loop = false;
@@ -106,6 +106,7 @@ export class AudioPlayerService {
     this.duration.set(this.audio.duration)
     this.track.set({...this.track()!, isPlaying: true})
     this.isPlayingState[this.track()!.id] = true;
+    this.trackService.updateListeningAmount(this.track()!.id).subscribe()
     this.audio?.play()
   }
 

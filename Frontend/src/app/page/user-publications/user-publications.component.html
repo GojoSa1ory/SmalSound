@@ -6,6 +6,8 @@
 
   @for (track of tracks(); track $index) {
     <app-track-card [page]="'userPublication'" [track]="track"/>
+  } @empty {
+    <p>Нет опубликованных треков</p>
   }
 
 </div>

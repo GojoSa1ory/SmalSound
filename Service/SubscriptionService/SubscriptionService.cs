@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace KPCourseWork.Service.SubscriptionService;
 
-public class SubscriptionService: ISubscriptionService
+public class SubscriptionService : ISubscriptionService
 {
     private readonly AppDbContext _context;
     private readonly IMapper _mapper;
@@ -25,6 +25,15 @@ public class SubscriptionService: ISubscriptionService
             var subscriber = await _context.Users.FindAsync(subscriberId);
             var subscribedTo = await _context.Users.FindAsync(subscribedToId);
 
+            var checkSub = await _context.Subscriptions
+                .FirstOrDefaultAsync(s => s.SubscriberId == subscriberId && s.SubscribedTo.Id == subscribedToId);
+            
+
+            if (checkSub is not null)
+            {
+                throw new Exception("U already is subscriber");
+            }
+
             if (subscriber == null || subscribedTo == null)
             {
                 throw new Exception("User not found");
@@ -33,7 +42,7 @@ public class SubscriptionService: ISubscriptionService
             var subscription = new SubscriptionModel
             {
                 SubscriberId = subscriberId,
-                SubscribedToId = subscribedToId
+                SubscribedTo = subscribedTo
             };
 
             _context.Subscriptions.Add(subscription);
@@ -56,8 +65,9 @@ public class SubscriptionService: ISubscriptionService
 
         try
         {
+            var subscribedTo = await _context.Users.FindAsync(subscribedToId);
             var subscription = await _context.Subscriptions
-                .FirstOrDefaultAsync(s => s.SubscriberId == subscriberId && s.SubscribedToId == subscribedToId);
+                .FirstOrDefaultAsync(s => s.SubscriberId == subscriberId && s.SubscribedTo == subscribedTo);
 
             if (subscription == null)
             {
@@ -78,38 +88,84 @@ public class SubscriptionService: ISubscriptionService
         return response;
     }
 
-    public Task<ServiceResponse<List<GetSubscriptionDto>>> GetSubscriptions(int userId)
+    public async Task<ServiceResponse<List<GetSubscriptionDto>>> GetSubscriptions(int userId)
     {
-        throw new NotImplementedException();
+        ServiceResponse<List<GetSubscriptionDto>> response = new();
+
+        try
+        {
+            var sub = _context.Subscriptions
+                .Include(s => s.SubscribedTo)
+                .Where(s => s.SubscriberId == userId).ToList();
+
+            if (sub is null) throw new Exception("Sub not found");
+
+            response.Data = sub.Select(s => _mapper.Map<GetSubscriptionDto>(s)).ToList();
+        }
+        catch (Exception ex)
+        {
+            response.Success = false;
+            response.Message = ex.Message;
+        }
+
+        return response;
     }
 
-    // public async Task<ServiceResponse<List<GetUserDto>>> GetSubscribers(int userId)
-    // {
-    //     ServiceResponse<List<GetUserDto>> response = new();
-    //
-    //     try
-    //     {
-    //         var user = await _context.Users
-    //             .Include(u => u.Subscribers)
-    //             .ThenInclude(s => s.Subscriber)
-    //             .FirstOrDefaultAsync(u => u.Id == userId);
-    //
-    //         if (user == null)
-    //         {
-    //             throw new Exception("User not found");
-    //         }
-    //
-    //         var subscribers = user.Subscribers.Select(s => s.Subscriber).ToList();
-    //         response.Data = _mapper.Map<List<GetUserDto>>(subscribers);
-    //     }
-    //     catch (Exception e)
-    //     {
-    //         response.Success = false;
-    //         response.Message = e.Message;
-    //     }
-    //
-    //     return response;
-    // }
+    public async Task<ServiceResponse<bool>> CheckSubscription(int userId, int subscribedToId)
+    {
+        ServiceResponse<bool> response = new();
+
+        try
+        {
+            var checkSub = await _context.Subscriptions
+                .FirstOrDefaultAsync(s => s.SubscriberId == userId && s.SubscribedTo.Id == subscribedToId);
+
+            if (checkSub is null)
+            {
+                response.Data = false;
+            }
+            else
+            {
+                response.Data = true;
+            }
+
+        }
+        catch (Exception e)
+        {
+            response.Success = false;
+            response.Message = e.Message;
+        }
+
+        return response;
+    }
+
+    public async Task<ServiceResponse<int>> GetSubscribersCount(int userId)
+    {
+        ServiceResponse<int> response = new();
+    
+        try
+        {
+            var user = await _context.Users
+                .Include(u => u.Subscriptions)
+                .FirstOrDefaultAsync(u => u.Id == userId);
+
+            int count = user.Subscriptions.Count;
+    
+            if (user == null)
+            {
+                throw new Exception("User not found");
+            }
+            
+            response.Data = count;
+        }
+        catch (Exception e)
+        {
+            response.Success = false;
+            response.Message = e.Message;
+        }
+    
+        return response;
+    }
 
     // public async Task<ServiceResponse<List<GetUserDto>>> GetSubscriptions(int userId)
     // {

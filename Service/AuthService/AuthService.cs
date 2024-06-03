@@ -67,6 +67,7 @@ public class AuthService : IAuthService
         {
             UserModel userDb = _context.Users
                 .Include(u => u.Role)
+                .Include(u => u.Subscriptions)
                 .FirstOrDefault(u => u.Name == user.Name);
 
             if (user is null) throw new Exception("User not found");

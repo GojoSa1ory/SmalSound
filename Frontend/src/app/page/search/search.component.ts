@@ -5,13 +5,15 @@ import {UserCardComponent} from "../../component/UI/user-card/user-card.componen
 import {TrackCardComponent} from "../../component/UI/track-card/track-card.component";
 import {TrackService} from "../../service/track.service";
 import {GenreModel} from "../../models/track.model";
+import {PlaylistCardComponent} from "../../component/UI/playlist-card/playlist-card.component";
 
 @Component({
   selector: 'app-search',
   standalone: true,
   imports: [
     UserCardComponent,
-    TrackCardComponent
+    TrackCardComponent,
+    PlaylistCardComponent
   ],
   templateUrl: './search.component.html',
   styleUrl: './search.component.scss'

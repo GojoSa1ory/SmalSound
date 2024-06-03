@@ -11,5 +11,6 @@ public interface ITrackService
     Task<ServiceResponse<GetTrackDto>> GetOneTrack(int trackId);
     Task<ServiceResponse<GetTrackDto>> UpdateTrack (UpdateTrackDto track, int trackId, int userId);
     Task<ServiceResponse<List<GetGenreDto>>> GetGenres();
+    Task<ServiceResponse<string>> UpdateListeningCount(int trackId); 
     Task<ServiceResponse<string>> DeleteTrack(int trackId);
 }

@@ -156,6 +156,31 @@ public class TrackService : ITrackService
 
         return response;
     }
+    
+    public async Task<ServiceResponse<string>> UpdateListeningCount(int trackId) 
+    {
+      ServiceResponse<string> response = new ();
+
+      try
+      {
+          var track = await _context.Tracks.FindAsync(trackId);
+          
+          if(track is null) throw new Exception("Track not found");
+
+          track.ListenCount += 1;
+
+          await _context.SaveChangesAsync();
+           
+      }
+      catch (Exception e)
+      {
+          response.Success = false;
+          response.Message = e.Message;
+          throw;
+      }
+
+      return response;
+    }
 
     public async Task<ServiceResponse<List<GetGenreDto>>> GetGenres () {
         ServiceResponse<List<GetGenreDto>> response = new();

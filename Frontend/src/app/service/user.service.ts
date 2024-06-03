@@ -49,6 +49,45 @@ export class UserService {
     })
   }
 
+  subscribeToUser (subscribedToId: number) {
+    return this.http.post(`${this.apiUrl}/subscription/subscribe/${subscribedToId}`, null, {headers: this.createAuthHeaders()})
+      .subscribe({
+        next: value => {
+          this.notificationService.showNotification(false, "", "Подписка оформлена")
+          setTimeout(() => this.notificationService.closeNotification(), 2000 )
+        },
+        error: err => {
+          this.notificationService.showNotification(true, "Ошибка")
+          setTimeout(() => this.notificationService.closeNotification(), 2000 )
+        }
+    })
+  }
+
+  unsubscribeFromUser(subscribedToId: number) {
+    return this.http.post(`${this.apiUrl}/subscription/unsubscribe/${subscribedToId}`,
+      null,
+      {headers: this.createAuthHeaders()}
+    ).subscribe({
+      next: value => {
+        this.notificationService.showNotification(false, "", "Отписка оформлена")
+        setTimeout(() => this.notificationService.closeNotification(), 2000 )
+      },
+      error: err => {
+        this.notificationService.showNotification(true, "Ошибка")
+        setTimeout(() => this.notificationService.closeNotification(), 2000 )
+      }
+    })
+  }
+
+  checkSub(subscribedToId: number) {
+    return this.http.get<ServerResponseModel<boolean>>(`${this.apiUrl}/subscription/check/${subscribedToId}`, {headers: this.createAuthHeaders()})
+  }
+
+  getListenersCount(userId: number) {
+    return this.http.get<ServerResponseModel<number>>(`${this.apiUrl}/subscription/listenersCount/${userId}`)
+  }
+
+
   private createAuthHeaders (): HttpHeaders {
     return new HttpHeaders().set('Authorization', `Bearer ${localStorage.getItem("token")}`)
   }

@@ -59,6 +59,10 @@ export class PlaylistService {
     return this.http.delete(`${this.apiUrl}/playlist/removeTrack/${playlistId}/${trackId}`, {headers: headers})
   }
 
+  autoAssignTracksToPlaylistsAsync () {
+    return this.http.get<ServerResponseModel<PlaylistModel[]>>(`${this.apiUrl}/playlist/auto`)
+  }
+
   private createAuthHeaders() {
     return new HttpHeaders().set(
       "Authorization",

@@ -1,29 +1,29 @@
 using AutoMapper;
 using KPCourseWork.Data;
 using KPCourseWork.Dto.PlaylistDto;
+using KPCourseWork.Dto.TrackDto;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
 namespace KPCourseWork.Service.PlaylistService;
 
-public class PlaylistService: IPlaylistService
+public class PlaylistService : IPlaylistService
 {
-
     private readonly AppDbContext _context;
     private readonly IMapper _mapper;
     private readonly IFileUploadService _fileService;
-    
+
     public PlaylistService(AppDbContext context, IMapper mapper, IFileUploadService fileService)
     {
         _context = context;
         _mapper = mapper;
         _fileService = fileService;
     }
-    
+
     public async Task<ServiceResponse<GetPlaylistDto>> CreatePlaylist(SetPlaylistDto newPlaylist, int userId)
     {
         ServiceResponse<GetPlaylistDto> response = new();
-            
+
         try
         {
             var user = _context.Users.FirstOrDefault(u => u.Id == userId);
@@ -66,10 +66,10 @@ public class PlaylistService: IPlaylistService
             response.Message = e.Message;
             response.Success = false;
         }
-        
+
         return response;
     }
-    
+
     public async Task<ServiceResponse<List<GetPlaylistDto>>> GetUserPlaylists(int userId)
     {
         ServiceResponse<List<GetPlaylistDto>> response = new();
@@ -90,7 +90,7 @@ public class PlaylistService: IPlaylistService
             response.Message = e.Message;
             response.Success = false;
         }
-        
+
         return response;
     }
 
@@ -117,7 +117,7 @@ public class PlaylistService: IPlaylistService
             response.Message = e.Message;
             response.Success = false;
         }
-        
+
         return response;
     }
 
@@ -134,7 +134,7 @@ public class PlaylistService: IPlaylistService
                 .Include(t => t.User)
                 .Include(t => t.Genre)
                 .FirstOrDefault(t => t.Id == trackId);
-            
+
             if (playlist is null) throw new Exception("Playlist not found");
             if (track is null) throw new Exception("Track not found");
 
@@ -164,7 +164,7 @@ public class PlaylistService: IPlaylistService
                 .Include(p => p.Tracks)
                 .FirstOrDefault(p => p.Id == id && p.User.Id == userId);
             var track = _context.Tracks.FirstOrDefault(t => t.Id == trackId);
-            
+
             if (playlist is null) throw new Exception("Playlist not found");
             if (track is null) throw new Exception("Track not found");
 
@@ -190,17 +190,19 @@ public class PlaylistService: IPlaylistService
         try
         {
             var playlist = _context.Playlists.FirstOrDefault(p => p.Id == id && p.User.Id == userId);
-            
+
             if (playlist is null) throw new Exception("Playlist not found");
 
-            playlist.Name = newPlaylist.Name != playlist.Name && newPlaylist.Name is not null && newPlaylist.Name != "" ? newPlaylist.Name : playlist.Name;
+            playlist.Name = newPlaylist.Name != playlist.Name && newPlaylist.Name is not null && newPlaylist.Name != ""
+                ? newPlaylist.Name
+                : playlist.Name;
 
             if (newPlaylist.Image is not null)
             {
                 string imagePath = await _fileService.UploadFile("Playlists", newPlaylist.Image);
                 playlist.Image = imagePath;
             }
-            
+
             await _context.SaveChangesAsync();
         }
         catch (Exception e)
@@ -208,7 +210,7 @@ public class PlaylistService: IPlaylistService
             response.Message = e.Message;
             response.Success = false;
         }
-        
+
         return response;
     }
 
@@ -224,7 +226,7 @@ public class PlaylistService: IPlaylistService
 
             _context.Playlists.Remove(playlist);
             await _context.SaveChangesAsync();
-            
+
             response.Data = "Done";
         }
         catch (Exception e)
@@ -232,7 +234,47 @@ public class PlaylistService: IPlaylistService
             response.Message = e.Message;
             response.Success = false;
         }
-        
+
         return response;
     }
+
+    public async Task<ServiceResponse<List<GetPlaylistDto>>> AutoAssignTracksToPlaylistsAsync()
+    {
+        ServiceResponse<List<GetPlaylistDto>> response = new ServiceResponse<List<GetPlaylistDto>>
+        {
+            Data = new List<GetPlaylistDto>()
+        };
+
+        try
+        {
+            var tracks = await _context.Tracks.ToListAsync();
+            var genres = await _context.Genre.ToListAsync();
+
+            foreach (var genre in genres)
+            {
+                var genreTracks = tracks.Where(t => t.Genre.Id == genre.Id).ToList();
+
+                if (genreTracks.Any())
+                {
+                    var trackDtos = genreTracks.Select(t => _mapper.Map<GetTrackDto>(t)).ToList();
+
+                    GetPlaylistDto playlist = new GetPlaylistDto
+                    {
+                        Name = genre.Name,
+                        Tracks = trackDtos
+                    };
+
+                    response.Data.Add(playlist);
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            response.Success = false;
+            response.Message = e.Message;
+        }
+
+        return response;
+    }
+
 }

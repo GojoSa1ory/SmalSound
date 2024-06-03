@@ -36,13 +36,13 @@ export class NavBarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    setTimeout(() => this.getUserPlaylists(), 1000)
+    setTimeout(() => this.getUserPlaylists(), 2000)
   }
 
-  getUserPlaylists () {
+  getUserPlaylists() {
     this.playlistService.getUserPlaylists(this.user()!.id).subscribe({
       next: value => {
-        this.playlists.set(value.data!)
+        this.playlistService.playlists$.set(value.data!)
       }
     })
   }

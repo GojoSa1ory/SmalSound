@@ -12,4 +12,5 @@ public class TrackModel
     public List<FavoriteModel>? Favorite { get; set; }
     public DateTime createdAt {get; set;}
     public DateTime updatedAt {get; set;}
+    public int ListenCount {get; set;}
 }

@@ -7,6 +7,7 @@ export type TrackModel = {
     track: string;
     isPlaying: boolean;
     user: UserModel;
+    listenCount: number;
 };
 
 export type SetTrackModel = {

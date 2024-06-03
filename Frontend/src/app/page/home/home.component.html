@@ -1,4 +1,9 @@
 <div class="home-container">
+
+  @for (playlist of playlists; track $index) {
+    <app-playlist-card [playlist]="playlist"/>
+  }
+
   @for (track of tracks(); track $index) {
     <app-track-card [track]="track"/>
   } @empty {
