@@ -6,7 +6,7 @@ public class PlaylistModel
     public string Name { get; set; }
     public string? Image { get; set; }
     public List<TrackModel>? Tracks { get; set; }
-    public UserModel User { get; set; }
-    public DateTime createdAt {get; set;}
-    public DateTime updatedAt {get; set;}
+    public UserModel? User { get; set; }
+    public DateTime createdAt { get; set; }
+    public DateTime updatedAt { get; set; }
 }

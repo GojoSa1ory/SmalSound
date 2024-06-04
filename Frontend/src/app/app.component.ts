@@ -17,7 +17,7 @@ import {NotificationComponent} from "./component/UI/notification/notification.co
 })
 export class AppComponent implements OnInit{
 
-  title = 'SmallSound';
+  title = 'SmalSound';
   tracks: WritableSignal<TrackModel[] | []> = signal([])
 
   constructor(

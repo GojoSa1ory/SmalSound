@@ -34,6 +34,8 @@ public class PlaylistService : IPlaylistService
 
             PlaylistModel result = _mapper.Map<PlaylistModel>(newPlaylist);
             result.User = user;
+            result.createdAt = DateTime.Now;
+            result.updatedAt = DateTime.Now;
 
             _context.Add(result);
             await _context.SaveChangesAsync();
@@ -247,7 +249,10 @@ public class PlaylistService : IPlaylistService
 
         try
         {
-            var tracks = await _context.Tracks.ToListAsync();
+            var tracks = await _context.Tracks
+                .Include(t => t.User)
+                .Include(t => t.Genre)
+                .ToListAsync();
             var genres = await _context.Genre.ToListAsync();
 
             foreach (var genre in genres)
@@ -256,15 +261,17 @@ public class PlaylistService : IPlaylistService
 
                 if (genreTracks.Any())
                 {
-                    var trackDtos = genreTracks.Select(t => _mapper.Map<GetTrackDto>(t)).ToList();
 
-                    GetPlaylistDto playlist = new GetPlaylistDto
+                    PlaylistModel playlist = new PlaylistModel
                     {
                         Name = genre.Name,
-                        Tracks = trackDtos
+                        Tracks = genreTracks,
                     };
 
-                    response.Data.Add(playlist);
+                    _context.Playlists.Add(playlist);
+                    await _context.SaveChangesAsync();
+                    var result = _mapper.Map<GetPlaylistDto>(playlist);
+                    response.Data.Add(result);
                 }
             }
         }

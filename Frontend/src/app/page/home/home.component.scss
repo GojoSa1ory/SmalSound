@@ -1,5 +1,15 @@
 .home-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
   padding: 10px;
   border-radius: 15px;
   background-color: #1e1a3b;
+}
+
+.home-playlists-container {
+  display: grid;
+  grid-template-columns: 30% 30% 30%;
+  gap: 20px;
 }
