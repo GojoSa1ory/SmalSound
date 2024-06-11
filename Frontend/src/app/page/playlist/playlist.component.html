@@ -1,21 +1,26 @@
 <div class="playlist-container">
     <div class="playlist-header">
-        @if (playlist?.image) {
+        <div class="playlist-header">
+          @if (playlist?.image) {
             <img class="playlist-image" [src]="playlist!.image" width="200px" />
-        } @else {
+          } @else {
             <img class="playlist-image" src="./assets/da.jpg" width="300px" />
-        }
-        <div class="playlist-info">
+          }
+          <div class="playlist-info">
             <h1 class="playlist-title">{{ playlist?.name }}</h1>
             <h2 class="playlist-subtitle">
-                Создатель:
-                {{
-                    playlist?.user
-                        ? playlist?.user?.name
-                        : "SmalSound"
-                }}
+              Создатель:
+              {{
+                playlist?.user
+                  ? playlist?.user?.name
+                  : "SmalSound"
+              }}
             </h2>
+          </div>
         </div>
+        @if(checkUser()) {
+          <button class="custom_button" (click)="update()" >Изменить</button>
+        }
     </div>
 
     <div class="playlist-body">

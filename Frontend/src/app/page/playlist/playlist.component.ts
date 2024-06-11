@@ -5,6 +5,10 @@ import { PlaylistModel } from "../../models/playlist.model";
 import { TrackCardComponent } from "../../component/UI/track-card/track-card.component";
 import { AudioPlayerService } from "../../service/audio-player.service";
 import { AuthService } from "../../service/auth.service";
+import {ModalService} from "../../service/modal.service";
+import {
+  UpdatePlaylistComponent
+} from "../../component/UI/update-playlist/update-playlist.component";
 
 @Component({
     selector: "app-playlist",
@@ -21,6 +25,7 @@ export class PlaylistComponent implements OnInit {
         private playlistService: PlaylistService,
         private playerSerice: AudioPlayerService,
         private authService: AuthService,
+        private modal: ModalService
     ) {}
     ngOnInit(): void {
         this.route.params.subscribe((params: Params) => {
@@ -39,5 +44,10 @@ export class PlaylistComponent implements OnInit {
           check = this.playlist?.user.id === this.authService.user$()?.id;
         }
         return check
+    }
+
+    update() {
+     this.modal.openModal(UpdatePlaylistComponent)
+      this.playlistService.playlistId.set(this.playlist!.id)
     }
 }

@@ -12,5 +12,5 @@ public class AppDbContext : DbContext
     public DbSet<GenreModel> Genre { get; set; }
     public DbSet<FavoriteModel> Favorite { get; set; }
     public DbSet<SubscriptionModel> Subscriptions { get; set; }
-    public DbSet<UserStatisticModel> UserStatistic { get; set; }
+    // public DbSet<UserStatisticModel> UserStatistic { get; set; }
 }

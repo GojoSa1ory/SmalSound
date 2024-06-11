@@ -1,0 +1,25 @@
+.changeUserInfo-layout {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.changeUserInfo-img {
+  width: 90px;
+  height: 90px;
+  border-radius: 15px;
+}
+
+.changeUserInfo-btn {
+  width: 90px;
+  height: 90px;
+  border-radius: 15px;
+  border: none;
+  background: none;
+  color: white;
+  transition-duration: 200ms;
+}
+
+.changeUserInfo-btn:hover {
+  background-color: #eb055a;
+}

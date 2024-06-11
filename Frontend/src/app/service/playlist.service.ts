@@ -13,6 +13,7 @@ export class PlaylistService {
   private playlists: WritableSignal<PlaylistModel[] | []> = signal([])
   private playlist: WritableSignal<PlaylistModel | null> = signal(null)
   trackId: WritableSignal<number> = signal(0)
+  playlistId: WritableSignal<number> = signal(0)
 
 
   get playlists$ () {
@@ -46,12 +47,12 @@ export class PlaylistService {
     return this.http.get<ServerResponseModel<PlaylistModel[]>>(`${this.apiUrl}/playlist/all/user/${userId}`)
   }
 
-  updatePlaylist (update: PlaylistModel, playlistId: number) {
-    return this.http.patch(`${this.apiUrl}/playlist/update/${playlistId}`, update)
+  updatePlaylist (update: any) {
+    return this.http.patch(`${this.apiUrl}/playlist/update/${this.playlistId()}`, update, {headers: this.createAuthHeaders()})
   }
 
-  deletePlaylist (playlistId: number) {
-    return this.http.delete(`${this.apiUrl}/playlist/remove/${playlistId}`)
+  deletePlaylist () {
+    return this.http.delete(`${this.apiUrl}/playlist/remove/${this.playlistId()}`, {headers: this.createAuthHeaders()})
   }
 
   deleteTrackFormPlaylist (playlistId: number, trackId: number) {

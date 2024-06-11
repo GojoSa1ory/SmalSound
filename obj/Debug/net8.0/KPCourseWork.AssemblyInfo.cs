@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("KPCourseWork")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d0b37a501091b53f18e6a2bb8b0f7b299a8391b9")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d2996fd55abab56dc4f1460d9ae06df47e1191fa")]
 [assembly: System.Reflection.AssemblyProductAttribute("KPCourseWork")]
 [assembly: System.Reflection.AssemblyTitleAttribute("KPCourseWork")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

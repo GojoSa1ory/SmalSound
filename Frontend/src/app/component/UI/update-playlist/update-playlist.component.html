@@ -1,0 +1,20 @@
+<div class="changeUserInfo-layout">
+
+  @if (imageUrl) {
+    <img [src]="imageUrl" class="changeUserInfo-img"/>
+  } @else {
+    <label class="input-file">
+      <input (input)="setImage($event)" type="file"/>
+      <span>Загрузите обложку</span>
+    </label>
+  }
+
+  <div>
+    <input [value]="name" (input)="setName($event)" placeholder="Введите новое имя" type="text" class="custom-input">
+  </div>
+
+  <button class="changeUserInfo-btn" (click)="updateInfo()">Сохранить</button>
+
+
+</div>
+<button class="custom_button" (click)="delete()">Удалить</button>
